@@ -5,6 +5,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
+  base:'/Windmillcode-Angular-CDK-Docs/',
   outDir: 'docs',
   integrations: [
   starlight({
