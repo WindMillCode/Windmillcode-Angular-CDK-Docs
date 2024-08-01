@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+iframe{
+  width: 100%;
+  height: calc(500/16 * 1em) !important;
+}
