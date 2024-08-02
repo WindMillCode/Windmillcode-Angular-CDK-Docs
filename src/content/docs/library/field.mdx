@@ -1,118 +1,84 @@
 ---
-title:  WML Chips
+title:  WML Field
 description: The Windmillcode Angular CDK Library
 ---
 
-The Angular WML Chips library provides a highly customizable chips component for Angular applications. It offers a variety of features to enhance user interaction and improve the overall user experience.
+The Angular WML Field library is an Angular-based framework designed to enhance the functionality and management of form fields within web applications. It provides a robust set of components and services that simplify the creation, validation, and handling of form fields, addressing common challenges faced by developers in form management. The library integrates seamlessly with Angular's reactive forms module, offering additional utilities for field state management, validation messaging, and dynamic content loading, thereby streamlining the form development process and improving user interaction.
+
+At the core of the `angular-wml-field` library are several central components, including `WMLFieldZero` and `WmlLabelZero`, each serving a distinct purpose within the form management ecosystem. `WMLFieldZero` acts as a container for individual form fields, encapsulating the logic for field rendering, validation, and interaction. It allows for the integration of custom components, enhancing flexibility and extensibility. `WmlLabelZero`, on the other hand, is dedicated to managing field labels and validation messages, supporting dynamic content capabilities. These components are designed to work in unison, with `WMLFieldZero` typically serving as a parent container that orchestrates the behavior of nested label and input components. Developers can customize these components through various input parameters and methods, enabling the creation of tailored form experiences that cater to specific application needs.
 
 ## Installation
 
-To install the Angular WML Chips Zero library, use the following command:
-
-```sh
-npm install @windmillcode/angular-wml-chips
+```bash
+npm install -d @windmillcode/angular-wml-field
 ```
 
+## Usage
 
-##  Usage
-
-### WMLChipsZeroComponent
+### WMLFieldZero
 
 #### Getting Started
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-g35wp3?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+* For advanced customization you can have as many labels and errors
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-hs4nsx?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-#### Custom Placeholder
+#### Error Messages
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-g2agli?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-ggabo6?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+#### Editing Field Features
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-jaykgw?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-#### Limit Chips
+#### Advanced Setup
 
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-8bhep3?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
-
-#### Custom Form Array
-
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-nucx2q?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
-
-
-{/*
-TODO implement wml-autocomplete for suggestions
-#### Suggestions */}
-
-#### Custom Button
-
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-6vwxzk?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
-
-## CSS Customization
-
-The WML Chips Zero component comes with several CSS variables and SCSS mixins that allow you to customize its appearance to fit your design needs.
-
-### CSS Variables
-
-The following CSS variables can be customized:
-
-```css
-:root {
-  --wml-chips-white: 255,255,255;
-  --wml-chips-black: 0,0,0;
-  --wml-chips-primary: 144,238,144;
-  --wml-chips-secondary: 112,112,112;
-  --wml-chips-primary-gradient: radial-gradient(farthest-corner at 100% 0px, rgb(144,238,144) 0%, rgb(112,112,112) 150%);
-  --wml-chips-secondary-gradient: radial-gradient(farthest-corner at 100% 0px, grey 0%, rgb(0,0,0) 150%);
-}
-```
-
-### SCSS Mixins
-
-#### FlexColumnCenter
-
-```scss
-@mixin FlexColumnCenter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-```
-
-#### Media Queries
-
-```scss
-$mobile: 'only screen and (max-width: 767px)';
-$desktop: 'only screen and (min-width: 1200px)';
-```
-
-### Spacing Variables
-
-```scss
-$wml-chips-spacing0: calc(1/16* 1rem);
-$wml-chips-spacing1: calc(2/16* 1rem);
-$wml-chips-spacing2: calc(4/16* 1rem);
-$wml-chips-spacing3: calc(8/16* 1rem);
-$wml-chips-spacing4: calc(12/16* 1rem);
-$wml-chips-spacing5: calc(16/16* 1rem);
-```
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-kufze9?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
 ## Reference
 
-### WMLChipsZeroProps
+### WMLFieldZeroProps Properties
 
-| Property                | Type                              | Description                                                  |
-|-------------------------|-----------------------------------|--------------------------------------------------------------|
-| `limit`                 | `number`                          | The maximum number of chips allowed. Default is `Infinity`.  |
-| `wmlField`              | `WMLFieldZeroProps`               | The field properties for the WML Chips component.            |
-| `formArray`             | `FormArray`                       | The form array to store the chip values.                     |
-| `updateFormArrayPredicate` | `(val: string) => any`          | Function to transform chip value before adding to form array.|
-| `placeholder`           | `string`                          | Placeholder text for the input.                              |
-| `userInputsAriaLabel`   | `string`                          | ARIA label for user inputs.                                  |
-| `removeChipAriaLabel`   | `string`                          | ARIA label for the remove chip button.                       |
-| `userInputs`            | `Array<string>`                   | The list of user inputs (chips).                             |
-| `clearBtn`              | `WMLButtonOneProps`               | Properties for the clear button.                             |
-{/*
-TODO implement
-| `suggestions`           | `Array<string>`                   | The list of suggestions for the chips.                       | */}
+| Property | Type | Description |
+|----------|------|-------------|
+| `self.type` | `"standalone" \| "wml-card"` | Determines the type of field, either standalone or wrapped in a card. |
+| `label.type` | `"custom"` | Specifies the type of label component; currently, only custom labels are supported. |
+| `field.type` | `"input" \| "custom"` | Indicates the type of field, either a standard input or a custom field component. |
+| `field.parentForm` | `FormGroup` | The parent `FormGroup` instance to which this field belongs. |
+| `field.formControlName` | `string` | The name of the form control within the parent form group. |
+| `error.type` | `"custom"` | Specifies the type of error display; currently, only custom error components are supported. |
 
+### WMLFieldZeroProps Methods
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `getReactiveFormControl` | `() => AbstractControl` | Retrieves the `AbstractControl` associated with this field. |
+| `getParentForm` | `() => FormGroup` | Returns the parent `FormGroup` of this field. |
+| `getFormControlName` | `() => string` | Gets the name of the form control associated with this field. |
+| `getLabel` | `() => string` | Retrieves the label's text value. |
+| `getRequiredLabel` | `() => string` | Fetches the required label's text value if it exists. |
+| `updateLabel` | `(label: string) => void` | Updates the label's text value. |
+| `updateRequiredLabel` | `(label: string) => void` | Updates the required label's text value. |
+| `deleteLabel` | `() => void` | Removes the label text. |
+| `deleteRequiredLabelPart` | `() => void` | Removes the required label text. |
+
+### WmlLabelZeroProps Class Properties
+
+| Property    | Type      | Description                                                                                             |
+|-------------|-----------|---------------------------------------------------------------------------------------------------------|
+| `cdref`     | `ChangeDetectorRef?` | Optional reference to Angular's change detection mechanism.                                                |
+| `type`      | `'label' \| 'error'` | Determines the label type, either for standard labels or error messages.                                      |
+| `isPresent` | `boolean`  | Flag indicating if the label should be displayed.                                                      |
+| `errorMsgs` | `Object`   | An object containing error message mappings.                                                          |
+| `labels`    | `Array<Array<{ type?: 'default' \| 'error' \| 'required' \| 'errorLink' \| 'defaultLink', value: string, isPresent?: boolean }>>` | Defines the label parts and their properties. |
+| `wmlField`  | `WMLFieldZeroProps` | Reference to the associated `WMLField` instance.                                                    |
+
+### WmlLabelZeroProps Class Methods
+
+| Method         | Signature                                      | Description                                                                |
+|----------------|------------------------------------------------|----------------------------------------------------------------------------|
+| `toggleErrors` | `(formControl: AbstractControl) => string[]`   | Determines which error messages to display based on the form control's state. Used interally probably triggerable plans to make it fully triggerable so if the errorMsgs are updated you can manually update the erros in the view  ||
 
 ## Changelog
 
+### v0.0.6
+  added updateLabel and updateRequiredLabel wrappers for updateLabelPart which allow to update the input of a field
 ### v1.0.0
 
     * ensured that there is support for ngx-translate and non ngx-translate features
@@ -122,7 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
     HttpClientModule,
-    WMLChipsZeroModule
+    WmlFieldModule
     .forChild(
       new WMLModuleForRootProps({
         ngxTranslateLoaderFactory:HttpLoaderFactory
@@ -131,11 +97,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 ```
     * to disable translation
 ```ts
-    WMLChipsZeroModule
+    WmlFieldModule
 ```
-### v1.0.1 -> v1.0.2
-  * atteptimg to fix dependencies
+
 ### 2.0.0
+* MAJOR rename to angular-wml-field
   * fixed major problems concerning ngx-translate
 ```ts
 // translate
@@ -149,13 +115,38 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
 // then
-WMLChipsZeroNGXTranslateModule
+WmlFieldNGXTranslateModule
 // for regular
-WmlChipsModule
+WmlFieldModule
+```
+* package uses @windmillcode/angular-wml-components-base
+### 2.1.0
+* provided serveral methods to help with retrieving different values realted to the fields
+```ts
+getReactiveFormControl
+getLabel
+getRequiredLabel
+getLabelPart
+updateLabel
+updateRequiredLabel
+updateLabelPart
+deleteLabelPart
+deleteRequiredLabelPart
+deleteLabel
 ```
 
-### 3.0.0
-* MAJOR : reanme to angular-wml-chips-zero
+
+### 2.1.1
+* made id accessible on selector itself, access via wmlField.view.id
+
+### 16.2.60
+* added
+WMLField#getParentForm
+WMLField#getFormControlName
+as additional methods
+
+### 16.2.70
+* added addititional features
 %!(EXTRA string=
 ### v16.2.80
  * updated package to reflect the version  16.2.80 of @angular/core package),
@@ -164,7 +155,10 @@ WmlChipsModule
 ### v16.2.90
  * updated package to reflect the version  16.2.90 of @angular/core package,
 ### v16.2.91
- * updated package to reflect the version  16.2.91 of @angular/core package,
+ * updated package to reflect the version  16.2.91 of @angular/core package
+### v16.2.92
+  * made BREAKING CHANGES to wmlfield replacing all WMLCustomComponent.meta with WMLCustomComponent.props
+,
 ### v16.2.93
  * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
 ### v16.2.100
@@ -178,8 +172,7 @@ WmlChipsModule
 ### v17.0.11
  * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
 ### v17.0.20
- * updated package to reflect the version  ^17.0.2 of @angular/core package
-,
+ * updated package to reflect the version  ^17.0.2 of @angular/core package,
 ### v17.0.40
  * updated package to reflect the version  ^17.0.4 of @angular/core package,
 ### v17.0.50
@@ -241,7 +234,8 @@ WmlChipsModule
 ### v17.2.4004 [3/13/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ### v17.3.0 [3/17/24]
- * updated package to reflect the version  ^17.3.0 of @angular/core package,
+ * updated package to reflect the version  ^17.3.0 of @angular/core package
+,
 ### v17.3.1000 [3/22/24]
  * updated package to reflect the version  ^17.3.1 of @angular/core package,
 ### v17.3.2000 [3/28/24]
@@ -253,25 +247,15 @@ WmlChipsModule
 ### v17.3.4001 [4/16/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ### v17.3.5000 [4/20/24]
- * updated package to reflect the version  ^17.3.5 of @angular/core package
-
-### v17.3.5100 [4/23/24]
-* [BREAKING CHANGE] - removed mat-autocomplete from chip control
-
-
-
-### v17.3.5110 [4/27/24]
-* [UPDATE] added wmlField so now formArray does not need to be specified and comes from wml-form
-[UPDATE]
-Updated chip styling in wml-chips-zero component for a more modern look and feel.
-
-[PATCH]
-Removed dependency on @angular/material in wml-chips-zero, reducing the package's dependency footprint
-[UPDATE]
-Introduced @windmillcode/angular-wml-button-zero in dependencies to enhance button functionalities in wml-chips-zero.
-,
+ * updated package to reflect the version  ^17.3.5 of @angular/core package,
 ### v17.3.5110 [5/1/24]
- * updated package to conform with @windmillcode/angular-wml-components-base   ,
+ * updated package to conform with @windmillcode/angular-wml-components-base
+[PATCH]
+Enhanced WMLField class in wml-field.component.ts by adding generic types for form control and parameters, allowing more flexible and type-safe custom component integrations.
+
+[UPDATE]
+Added getFieldProps and updated getReactiveFormControl methods in WMLField class for better handling and customization of form controls and their properties.
+,
 ### v17.3.6000 [5/1/24]
  * updated package to reflect the version  ^17.3.6 of @angular/core package,
 ### v17.3.7000 [5/9/24]
@@ -280,8 +264,6 @@ Introduced @windmillcode/angular-wml-button-zero in dependencies to enhance butt
  * updated package to reflect the version  ^17.3.8 of @angular/core package,
 ### v17.3.9000 [5/16/24]
  * updated package to reflect the version  ^17.3.9 of @angular/core package,
-### v18.0.0 [5/22/24]
- * updated package to reflect the version  ^18.0.0 of @angular/core package,
 ### v18.0.1 [5/22/24]
  * updated package to reflect the version  ^18.0.0 of @angular/core package,
 ### v18.0.4 [5/25/24]
@@ -300,8 +282,6 @@ Introduced @windmillcode/angular-wml-button-zero in dependencies to enhance butt
  * updated package to reflect the version  ^18.0.5 of @angular/core package,
 ### v18.0.6000 [7/5/24]
  * updated package to reflect the version  ^18.0.6 of @angular/core package,
-### v18.1.0 [7/10/24]
- * updated package to reflect the version  ^18.1.0 of @angular/core package,
 ### v18.1.3 [7/13/24]
  * updated package to reflect the version  ^18.1.0 of @angular/core package,
 ### v18.1.4 [7/13/24]
@@ -311,7 +291,11 @@ Introduced @windmillcode/angular-wml-button-zero in dependencies to enhance butt
 ### v18.1.1000 [7/18/24]
  * updated package to reflect the version  ^18.1.1 of @angular/core package,
 ### v18.1.2000 [7/24/24]
- * updated package to reflect the version  ^18.1.2 of @angular/core package,
+ * updated package to reflect the version  ^18.1.2 of @angular/core package
+
+### v18.1.2100 [7/26/24]
+* [BREAKING CHANGE] replaced main tags with div tags
+,
 ### v18.1.2300 [7/27/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ### v18.1.2301 [7/30/24]
@@ -324,4 +308,4 @@ Introduced @windmillcode/angular-wml-button-zero in dependencies to enhance butt
 ### v18.1.3000-beta3 [8/1/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ### v18.1.3000-beta4 [8/1/24]
- * updated package to conform with @windmillcode/angular-wml-components-base
+ * updated package to conform with @windmillcode/angular-wml-components-base   
