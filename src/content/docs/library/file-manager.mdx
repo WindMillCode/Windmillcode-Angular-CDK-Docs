@@ -29,152 +29,236 @@ npm install -d @windmillcode/angular-wml-file-manager
 
 <iframe src="https://stackblitz.com/edit/stackblitz-starters-pci9ga?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
+### Custom Validation
+* when this is applied you are replacing validation for duplicates and limit and must reimplement again its planned to make it plug and play
+{/* TODO make this feature more plug and play */}
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-dh4beu?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-
-https://stackblitz.com/edit/stackblitz-starters-dh4beu?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark
 
 ### Handling File Upload
+[Diode Reverse Proxy](https://support.diode.io/article/uvmsbqnlqi-host-a-decentralized-private-proxy-server)
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-meialj?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
 
+## Reference
 
-<iframe src=""></iframe>
 
-# CSS Customization
-
-The library offers a flexible CSS customization mechanism. Here are some of the variables and mixins available for customization:
-
-## Colors
-
-```scss
-$wml-file-manager-white: "255,255,255";
-$wml-file-manager-black: "0,0,0";
-$wml-file-manager-primary: "144,238,144";
-$wml-file-manager-secondary:"112,112,112";
-
-$wml-file-manager-primary-gradient: radial-gradient(farthest-corner at 100% 0px, convert-to-rgb($wml-file-manager-primary) 0%, convert-to-rgb($wml-file-manager-secondary) 150%);
-$wml-file-manager-secondary-gradient: radial-gradient(farthest-corner at 100% 0px, grey 0%, convert-to-rgb($wml-file-manager-black) 150%);
-
-:root {
-  --wml-file-manager-white: #{$wml-file-manager-white};
-  --wml-file-manager-black: #{$wml-file-manager-black};
-  --wml-file-manager-primary: #{$wml-file-manager-primary};
-  --wml-file-manager-secondary: #{$wml-file-manager-secondary};
-
-  --wml-file-manager-primary-gradient: #{$wml-file-manager-primary-gradient};
-  --wml-file-manager-secondary-gradient: #{$wml-file-manager-secondary-gradient};
-}
-```
-
-## Spacing
-
-```scss
-$wml-file-manager-spacing0: calc(1/16* 1rem);
-$wml-file-manager-spacing1: calc(2/16* 1rem);
-$wml-file-manager-spacing2: calc(4/16* 1rem);
-$wml-file-manager-spacing3: calc(8/16* 1rem);
-$wml-file-manager-spacing4: calc(12/16* 1rem);
-$wml-file-manager-spacing5: calc(16/16* 1rem);
-$wml-file-manager-spacing6: calc(24/16* 1rem);
-$wml-file-manager-spacing7: calc(32/16* 1rem);
-$wml-file-manager-spacing8: calc(48/16* 1rem);
-$wml-file-manager-spacing9: calc(64/16* 1rem);
-$wml-file-manager-spacing10: calc(72/16* 1rem);
-$wml-file-manager-spacing11: calc(96/16* 1rem);
-$wml-file-manager-spacing12: calc(128/16* 1rem);
-$wml-file-manager-spacing13: calc(192/16* 1rem);
-$wml-file-manager-spacing14: calc(256/16* 1rem);
-$wml-file-manager-spacing15: calc(384/16* 1rem);
-$wml-file-manager-spacing16: calc(512/16* 1rem);
-```
-
-## Media Queries
-
-```scss
-$mobileFont: 'only screen and (max-width: 600px)';
-$mobile: 'only screen and (max-width: 767px)';
-$smallMobile: 'only screen and (max-width: 320px)';
-$mediumMobile: 'only screen and (max-width: 374px)';
-$tablet: 'only screen and (min-width: 768px) and (max-width: 1199px)';
-$tabletPortrait: 'only screen and (min-width: 768px) and (max-width: 991px)';
-$tabletPortraitDown: 'only screen and (max-width: 991px)';
-$tabletLandscape: 'only screen and (min-width: 992px) and (max-width: 1199px)';
-$smallDesktop: 'only screen and (min-width: 992px)';
-$tabletLandscapeDown: 'only screen and (max-width: 1199px)';
-$desktop: 'only screen and (min-width: 1200px)';
-$notMobile: 'only screen and (min-width: 768px)';
-$laptop: 'only screen and (min-width: 1200px) and (max-width: 1440px)';
-$laptopDown: 'only screen and (max-width: 1440px)';
-$laptopTablet: 'only screen and (min-width: 768px) and (max-width: 1440px)';
-$laptopTabletLandscape: 'only screen and (min-width: 992px) and (max-width: 1440px)';
-$largeDesktop: 'only screen and (min-width: 1441px)';
-$largeDesktopDown: 'only screen and (max-width: 1599px)';
-$xlDesktop: 'only screen and (min-width: 1600px)';
-$xlDesktopDown: 'only screen and (max-width: 1919px)';
-$xxlDesktop: 'only screen and (min-width: 1920px)';
-$xxxlDesktop: 'only screen and (min-width: 2000px)';
-$desktopDownForCampaigns: 'only screen and (max-width: 1250px)';
-
-:root {
-  --wml-file-manager-mobile-font: #{$mobileFont};
-  --wml-file-manager-mobile: #{$mobile};
-  --wml-file-manager-small-mobile: #{$smallMobile};
-  --wml-file-manager-medium-mobile: #{$mediumMobile};
-  --wml-file-manager-tablet: #{$tablet};
-  --wml-file-manager-tablet-portrait: #{$tabletPortrait};
-  --wml-file-manager-tablet-portrait-down: #{$tabletPortraitDown};
-  --wml-file-manager-tablet-landscape: #{$tabletLandscape};
-  --wml-file-manager-small-desktop: #{$smallDesktop};
-  --wml-file-manager-tablet-landscape-down: #{$tabletLandscapeDown};
-  --wml-file-manager-desktop: #{$desktop};
-  --wml-file-manager-not-mobile: #{$notMobile};
-  --wml-file-manager-laptop: #{$laptop};
-  --wml-file-manager-laptop-down: #{$laptopDown};
-  --wml-file-manager-laptop-tablet: #{$laptopTablet};
-  --wml-file-manager-laptop-tablet-landscape: #{$laptopTabletLandscape};
-  --wml-file-manager-large-desktop: #{$largeDesktop};
-  --wml-file-manager-large-desktop-down: #{$largeDesktopDown};
-  --wml-file-manager-xl-desktop: #{$xlDesktop};
-  --wml-file-manager-xl-desktop-down: #{$xlDesktopDown};
-  --wml-file-manager-xxl-desktop: #{$xxlDesktop};
-  --wml-file-manager-xxxl-desktop: #{$xxxlDesktop};
-  --wml-file-manager-desktop-down-for-campaigns: #{$desktopDownForCampaigns};
-}
-```
-
-# Reference
-
-### Properties
-
-| Property                   | Type                                  | Description                                                   |
-|----------------------------|---------------------------------------|---------------------------------------------------------------|
-| `props`                    | `WMLFileUploadZeroProps`              | Configuration parameters for the file upload component.       |
-
-### `WMLFileUploadZeroProps` Configuration
-
+### `WMLFileUploadZeroProps` Properties
 | Property                  | Type                              | Description                                                     |
 |---------------------------|-----------------------------------|-----------------------------------------------------------------|
-| `automation`              | `boolean`                         | If set to true, enables automation features.                    |
 | `files`                   | `WMLFileUploadZeroItem[]`         | The list of files to be uploaded.                               |
 |
-
  `dragDropText`            | `string`                          | Text displayed for the drag-and-drop area.                      |
 | `browseFileText`          | `string`                          | Text displayed on the browse button.                            |
 | `limit`                   | `number`                          | The maximum number of files that can be uploaded.               |
 | `formArray`               | `FormArray<AbstractControl>`      | Angular FormArray to track the state of uploads.                |
 | `duplicates`              | `boolean`                         | Whether to allow duplicate files.                               |
-| `uploadFn`                | `Function`                        | Function to call when a file is uploaded.                       |
+| `uploadFn`                | `(item:WMLFileUploadZeroItem)=> Observable<any>`                        | Function to call when a file is uploaded. This is where you usually upload files to a server                       |
 | `updateFormArrayPredicate`| `Function`                        | Function to update the FormArray based on current files.        |
 | `uploadAllowedPredicate`  | `(file: File, fileList: File[]) => boolean` | Function to determine if a file upload is allowed.  |
 | `afterUploadPredicate`    | `() => WMLFileUploadZeroItem[]`   | Function called after files are selected/uploaded.              |
+{/* TODO what does this do | `automation`              | `boolean`                         | If set to true, enables automation features.                    | */}
 
-### Methods
 
-These are methods you might need to interact with in your component:
 
-| Method                   | Parameters                         | Return Type | Description                                              |
-|--------------------------|------------------------------------|-------------|----------------------------------------------------------|
-| `chooseFiles`            | `myFileList: FileList \| Array<any>` | `void`      | Triggers the file selection and processes the selected files. |
-| `uploadFile`             | `item: WMLFileUploadZeroItem`      | `void`      | Initiates the upload process for a single file item.     |
-| `deleteFile`             | `item: WMLFileUploadZeroItem`      | `void`      | Removes a file from the list of files to be uploaded.    |
-| `retryUpload`            | `item: WMLFileUploadZeroItem`      | `void`      | Retries the upload process for a file.                   |
-| `cancelUpload`           | `item: WMLFileUploadZeroItem`      | `void`      | Cancels the upload process for a file.                   |
+## Changelog
+
+### 0.1.7
+uploadAllowedPredicate - allows developer to edit the files list after the uploadAllowedPredicate validation for additional modfication or aux tasks as needed
+be sure to return WMLFileUploadZeroItem[] | this.props.files as necessary
+
+### 1.0.0
+
+    * ensured that there is support for ngx-translate and non ngx-translate features
+    * to enable translation
+```ts
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+    HttpClientModule,
+    WmlFileManagerModule
+    .forChild(
+      new WMLModuleForRootProps({
+        ngxTranslateLoaderFactory:HttpLoaderFactory
+      })
+    ),
+```
+    * to disable translation
+```ts
+    WmlFileManagerModule
+```
+
+### 1.0.1
+* minor dependency update
+### 2.0.0
+* MAJOR rename to angular-wml-file-manager
+  * fixed major problems concerning ngx-translate
+```ts
+// translate
+// first make sure to have ONLY ONE in the imports for AppModule
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    }),
+// then
+WmlFileManagerNGXTranslateModule
+// for regular
+WmlFileManagerModule
+```
+%!(EXTRA string=
+### v16.2.80
+ * updated package to reflect the version  16.2.80 of @angular/core package),
+### v16.2.80
+ * updated package to reflect the version  16.2.80 of @angular/core package,
+### v16.2.90
+ * updated package to reflect the version  16.2.90 of @angular/core package,
+### v16.2.91
+ * updated package to reflect the version  16.2.91 of @angular/core package,
+### v16.2.93
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.100
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.110
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.120
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.10
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.11
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.20
+ * updated package to reflect the version  ^17.0.2 of @angular/core package,
+### v17.0.40
+ * updated package to reflect the version  ^17.0.4 of @angular/core package,
+### v17.0.50
+ * updated package to reflect the version  ^17.0.5 of @angular/core package,
+### v17.0.60
+ * updated package to reflect the version  ^17.0.6 of @angular/core package,
+### v17.0.70
+ * updated package to reflect the version  ^17.0.7 of @angular/core package,
+### v17.0.7100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7200
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7300
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.80
+ * updated package to reflect the version  ^17.0.8 of @angular/core package,
+### v17.0.8100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.8102
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.8103
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.9000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.9001
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.0000
+ * updated package to reflect the version  ^17.1.0 of @angular/core package,
+### v17.1.2
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.1000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.2000 [2/5/24]
+ * updated package to reflect the version  ^17.1.2 of @angular/core package,
+### v17.1.2001 [2/8/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.3000 [2/8/24]
+ * updated package to reflect the version  ^17.1.3 of @angular/core package,
+### v17.2.1000 [2/17/24]
+ * updated package to reflect the version  ^17.2.1 of @angular/core package,
+### v17.2.2000 [2/23/24]
+ * updated package to reflect the version  ^17.2.2 of @angular/core package,
+### v17.2.2001 [2/23/24]
+ * updated package to reflect the version  ^17.2.2 of @angular/core package,
+### v17.2.3000 [2/28/24]
+ * updated package to reflect the version  ^17.2.3 of @angular/core package,
+### v17.2.3001 [3/2/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.3002 [3/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4000 [3/8/24]
+ * updated package to reflect the version  ^17.2.4 of @angular/core package,
+### v17.2.4001 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4002 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4003 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4004 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.0 [3/17/24]
+ * updated package to reflect the version  ^17.3.0 of @angular/core package
+,
+### v17.3.1000 [3/22/24]
+ * updated package to reflect the version  ^17.3.1 of @angular/core package,
+### v17.3.2000 [3/28/24]
+ * updated package to reflect the version  ^17.3.2 of @angular/core package,
+### v17.3.3000 [4/4/24]
+ * updated package to reflect the version  ^17.3.3 of @angular/core package,
+### v17.3.4000 [4/11/24]
+ * updated package to reflect the version  ^17.3.4 of @angular/core package,
+### v17.3.4001 [4/16/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.5000 [4/20/24]
+ * updated package to reflect the version  ^17.3.5 of @angular/core package
+
+### v17.3.5110 [5/1/24]
+* [UPDATE]
+Changed the updateFormArrayPredicate function in WMLFileUploadZeroComponent of wml-file-upload.component.ts to wrap the file parameter in a new WMLFileUploadZeroItem. This helps ensure that items are handled correctly in the form array, affecting how files are uploaded using the component.
+,
+### v17.3.5110 [5/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.6000 [5/1/24]
+ * updated package to reflect the version  ^17.3.6 of @angular/core package,
+### v17.3.7000 [5/9/24]
+ * updated package to reflect the version  ^17.3.7 of @angular/core package,
+### v17.3.8000 [5/9/24]
+ * updated package to reflect the version  ^17.3.8 of @angular/core package,
+### v17.3.9000 [5/16/24]
+ * updated package to reflect the version  ^17.3.9 of @angular/core package,
+### v18.0.1 [5/22/24]
+ * updated package to reflect the version  ^18.0.0 of @angular/core package,
+### v18.0.4 [5/25/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.1000 [5/29/24]
+ * updated package to reflect the version  ^18.0.1 of @angular/core package,
+### v18.0.2000 [6/6/24]
+ * updated package to reflect the version  ^18.0.2 of @angular/core package,
+### v18.0.3000 [6/13/24]
+ * updated package to reflect the version  ^18.0.3 of @angular/core package,
+### v18.0.3010 [6/18/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.4000 [6/23/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.5000 [6/26/24]
+ * updated package to reflect the version  ^18.0.5 of @angular/core package,
+### v18.0.6000 [7/5/24]
+ * updated package to reflect the version  ^18.0.6 of @angular/core package,
+### v18.1.4 [7/13/24]
+ * updated package to reflect the version  ^18.1.0 of @angular/core package,
+### v18.1.6 [7/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.1000 [7/18/24]
+ * updated package to reflect the version  ^18.1.1 of @angular/core package,
+### v18.1.2000 [7/24/24]
+ * updated package to reflect the version  ^18.1.2 of @angular/core package,
+### v18.1.2300 [7/27/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.2301 [7/30/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+,
+### v18.1.3000-beta1 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta2 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta3 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
