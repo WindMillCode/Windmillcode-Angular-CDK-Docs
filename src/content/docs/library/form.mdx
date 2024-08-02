@@ -15,30 +15,35 @@ The Angular WML Form Libary is a versatile and customizable library designed to 
 ## Installation
 ```bash
 npm install @windmillcode/angular-wml-form
+# to populate the field, submit form
 npm install @windmillcode/angular-wml-field
+npm install @windmillcode/angular-wml-input
+npm install @windmillcode/angular-wml-button
 ```
 
 ## Usage
 
 Below are possible examples that developers might most commonly need to use and those that developers might have issues with. Ensure the component name is included in each example.
 
-```mdx
+
 ### Basic Form Setup
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-fgsk2e?embed=1&file=package.json&hideExplorer=1&theme=dark"></iframe>
 
-<iframe src="[stackblits url placeholder]"></iframe>
+### Form Submission
+* the FormGroup is applied at the field level not the form level so essentiallly you do not need wml-form-zero to create your custom form
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-4zvh8e?embed=1&file=package.json&hideExplorer=1&theme=dark"></iframe>
 
-### Dynamic Fields Update
+### Dynamic Field Update
+* it replaces so you need the orginal field in case of adding fields
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-wgiqyj?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-<iframe src="[stackblits url placeholder]"></iframe>
+### Field Sections
+* using field sections helps style the layout of the form
+* All you have to do is to apply display flex to the target form
+{/* TODO find common layout styles */}
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-24xsgt?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-### Custom Styling
 
-<iframe src="[stackblits url placeholder]"></iframe>
-
-### Event Handling
-
-<iframe src="[stackblits url placeholder]"></iframe>
-```
 
 ## Reference
 
@@ -53,14 +58,19 @@ Below are possible examples that developers might most commonly need to use and 
 | Property                | Type                                 | Description |
 |-------------------------|--------------------------------------|-------------|
 | `view`                  | `WMLView`                            | View configuration for the form. |
-| `displayFields`         | `Array<WMLUIProperty<WMLFieldZeroProps[]>>` | Fields to be displayed in the form. |
 | `fields`                | `Array<WMLFieldZeroProps>`           | List of fields in the form. |
 | `fieldSections`         | `Array<number>`                      | Array defining the layout sections of the fields. |
-| `fieldsUpdateSubj`      | `ReplaySubject<WMLFormFieldsUpdateSubjProps>` | Subject to manage field updates. |
 | `fieldsUpdatedEvent`    | `Subject<void>`                      | Event emitted when fields are updated. |
 | `resetFieldSections`    | `() => void`                         | Method to reset field sections. |
 | `updateFields`          | `(fields: Array<WMLFieldZeroProps>) => void` | Method to update fields. |
+{/*
+TODO decide to add
+| `displayFields`         | `Array<WMLUIProperty<WMLFieldZeroProps[]>>` | Fields to be displayed in the form. |
+| `fieldsUpdateSubj`      | `ReplaySubject<WMLFormFieldsUpdateSubjProps>` | Subject to manage field updates. |
+*/}
 
+{/*
+TODO should I put I dont want to confuse anyone
 ### WMLFormZeroComponent Methods
 
 | Method                  | Description |
@@ -71,6 +81,6 @@ Below are possible examples that developers might most commonly need to use and 
 | `listenForChangesInFields` | Listens for changes in fields and updates accordingly. |
 | `silenceSubmitAction`   | Prevents the default form submission action. |
 | `ngOnInit`              | Initializes the component and subscribes to necessary observables. |
-| `ngOnDestroy`           | Cleans up subscriptions to prevent memory leaks. |
+| `ngOnDestroy`           | Cleans up subscriptions to prevent memory leaks. | */}
 
 This structured and organized documentation provides a clear and comprehensive guide for developers to understand and use the `WMLFormZero` component effectively.

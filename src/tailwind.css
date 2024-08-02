@@ -6,3 +6,12 @@ iframe{
   width: 100%;
   height: calc(500/16 * 1em) !important;
 }
+
+.sl-container{
+  width: 100%;
+  max-width: none;
+}
+
+.main-pane{
+  width: auto !important;
+}
