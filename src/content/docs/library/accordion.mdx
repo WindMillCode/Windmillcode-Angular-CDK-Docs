@@ -41,20 +41,11 @@ This example shows how to dynamically load content into the accordion sections:
 <iframe  src="https://stackblitz.com/edit/stackblitz-starters-rrxnns?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
 
-## 3. Controlling Accordion State
+## Programmatically Open And Close
+<iframe  src="https://stackblitz.com/edit/stackblitz-starters-s1dkef?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
-Demonstrating how developers can programmatically open or close accordion sections:
-
-```typescript
-// Open the first section
-accordionProps.items[0][0].toggleAccordionSubj.next({ val: false, emit: true });
-
-// Close the first section
-accordionProps.items[0][0].toggleAccordionSubj.next({ val: true, emit: true });
-```
-
-## 4. Custom Animation Timing
-
+{/* ##  Custom Animation Timing
+TODO fix
 This example modifies the default animation timing for the opening and closing of accordion items:
 
 ```typescript
@@ -67,52 +58,34 @@ accordionProps.items.forEach(group => {
   });
 });
 ```
+*/}
 
 # Customization
-There are the [color pallete](./_color_pallete.scss)
-and [media queries](./_media_queries.scss) that you can use to customize the accordion. in your css simply replace the values with the ones you want to use and the component will take on the look. the variables are very specific and even named after the component to avoid any overlapping issues
+There are the [color pallete](https://github.com/WindMillCode/Windmillcode-Angular-CDK/blob/main/projects/wml-accordion-zero/_color_pallete.scss)
+, [media queries](https://github.com/WindMillCode/Windmillcode-Angular-CDK/blob/main/projects/wml-accordion-zero/_media_queries.scss) ,[spacing](https://github.com/WindMillCode/Windmillcode-Angular-CDK/blob/main/projects/wml-accordion-zero/_spacing.scss)  and [common](https://github.com/WindMillCode/Windmillcode-Angular-CDK/blob/main/projects/wml-accordion-zero/_common.scss) that you can use to customize the accordion. in your css simply replace the values with the ones you want to use and the component will take on the look. the variables are very specific and even named after the component to avoid any overlapping issues
 
-
+{/* // TODO fix
 ## CSS Customization
-* to globally customize in your  css file
+<iframe  src="https://stackblitz.com/edit/stackblitz-starters-yysl6k?embed=1&file=angular.json&hideExplorer=1&theme=dark"></iframe> */}
 
-```py
-.WMLAccordionZeroView {
-  &MainPod {
-    &Pod {
-      &ItemMainPod {
-        &ItemPod0 {
-          &Icon0 {}
-          &Title0 {}
-        }
-        &ItemPod1 {
-          &ContentPod {}
-        }
-      }
-    }
-  }
-}
-
-```
 
 
 
 #  Docs
-
 
 ## WMLAccordionZeroProps
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `id` | `string` | An optional identifier for the accordion component. |
-| `items` | `Array<WMLAccordionZeroItemProps[]>` | An array of accordion item parameters to define each section. |
+| `items` | `<WMLAccordionZeroItemProps[][]>` | A 2D array of accordion item parameters to define each section. |
 
 ## WMLAccordionZeroItemProps
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `id` | `string` | An optional identifier for the accordion item. |
-| `title` | `string` | The title text for the accordion item. |
+| `propTitle` | `string` | The title text for the accordion item. |
 | `isClosed` | `boolean` | Indicates whether the accordion item is initially closed. |
 | `toggleAccordionEvent` | `Subject<boolean>` | An event that toggles the accordion item's open/close state. |
 | `toggleAccordionSubj` | `Subject<{ val: boolean; emit: boolean }>` | Subject to programmatically toggle the accordion's state. |
@@ -134,13 +107,12 @@ and [media queries](./_media_queries.scss) that you can use to customize the acc
 
 | Property | Type | Description | Default Value |
 |----------|------|-------------|---------------|
+| `id` | `string` | Identifier for the sample component. | `""` |
 | `title` | `string` | Text for the accordion title. | `"My Accordion Title"` |
 
 
 These tables provide an overview of the key elements within the WML Accordion Zero library that developers can interact with to customize and control accordion behavior in their Angular applications.
 
-
-These examples illustrate the flexibility and capability of the WML Accordion Zero library in catering to a variety of accordion-related needs in Angular applications, from basic setups to more advanced and dynamic scenarios.
 
 
 # Changelog
