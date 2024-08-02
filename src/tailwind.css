@@ -13,5 +13,5 @@ iframe{
 }
 
 .main-pane{
-  width: auto !important;
+  flex:1 0 78%;
 }
