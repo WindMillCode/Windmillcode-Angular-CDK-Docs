@@ -2,6 +2,8 @@ See the contents of this angular library
 
 Create an Overview Installation Usage CSS Customization and Reference Section for this code ensure in order
 
+All hearders must start with  two hearders such as this ##
+
 For the overview talk about all features of the compponent except for translation
 
 Do not create a usage section with code just provide possible examples that developers many most commonly need to use and those that developers might have issues with ensure the component name is with ## the Usage section is with ### and each example is with #### acording to the example name not (example 1...) dont include example in the subsection. make sure to include a getting started

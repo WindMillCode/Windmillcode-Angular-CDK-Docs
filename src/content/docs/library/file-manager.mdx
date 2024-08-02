@@ -1,0 +1,178 @@
+---
+title:  WML File Manager
+description: The Windmillcode Angular CDK Library
+---
+
+The Angular WML File Manager library is designed to enhance Angular applications by providing robust file upload capabilities. This library streamlines the process of integrating file upload functionality, addressing common challenges such as handling multiple file formats, validating file sizes, and providing feedback on the upload process. Its primary goal is to offer a configurable and efficient solution for developers to incorporate file upload features into their applications, with a focus on ease of use and flexibility.
+
+At the heart of the library are several key components that facilitate its core functionality. The library includes components for file selection, upload progress indication, and error handling. These components work in concert to provide a seamless user experience, allowing for the asynchronous upload of files with real-time progress feedback. Developers have the ability to customize these components, tailoring the file upload experience to their application's specific needs. Parameters and services are exposed to enable customization, such as defining file size limits, specifying allowed file types, and customizing the UI elements. The library also supports interactivity, offering hooks and events that developers can leverage to create dynamic responses to the file upload process. In terms of implementation, the library encourages a modular approach, where developers can integrate and configure the file upload components within their existing Angular applications, ensuring flexibility and adaptability to various use cases.
+
+## Installation
+
+```bash
+npm install -d @windmillcode/angular-wml-file-manager
+```
+## Usage
+
+## WMLFileUploadZero
+
+### Getting Started
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-gmecxv?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+###  Change Field Text
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-xhaocw?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+### Change Limit
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-ekpyrw?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+#### Allow Duplicates
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-pci9ga?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+https://stackblitz.com/edit/stackblitz-starters-dh4beu?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark
+
+### Handling File Upload
+
+
+
+<iframe src=""></iframe>
+
+# CSS Customization
+
+The library offers a flexible CSS customization mechanism. Here are some of the variables and mixins available for customization:
+
+## Colors
+
+```scss
+$wml-file-manager-white: "255,255,255";
+$wml-file-manager-black: "0,0,0";
+$wml-file-manager-primary: "144,238,144";
+$wml-file-manager-secondary:"112,112,112";
+
+$wml-file-manager-primary-gradient: radial-gradient(farthest-corner at 100% 0px, convert-to-rgb($wml-file-manager-primary) 0%, convert-to-rgb($wml-file-manager-secondary) 150%);
+$wml-file-manager-secondary-gradient: radial-gradient(farthest-corner at 100% 0px, grey 0%, convert-to-rgb($wml-file-manager-black) 150%);
+
+:root {
+  --wml-file-manager-white: #{$wml-file-manager-white};
+  --wml-file-manager-black: #{$wml-file-manager-black};
+  --wml-file-manager-primary: #{$wml-file-manager-primary};
+  --wml-file-manager-secondary: #{$wml-file-manager-secondary};
+
+  --wml-file-manager-primary-gradient: #{$wml-file-manager-primary-gradient};
+  --wml-file-manager-secondary-gradient: #{$wml-file-manager-secondary-gradient};
+}
+```
+
+## Spacing
+
+```scss
+$wml-file-manager-spacing0: calc(1/16* 1rem);
+$wml-file-manager-spacing1: calc(2/16* 1rem);
+$wml-file-manager-spacing2: calc(4/16* 1rem);
+$wml-file-manager-spacing3: calc(8/16* 1rem);
+$wml-file-manager-spacing4: calc(12/16* 1rem);
+$wml-file-manager-spacing5: calc(16/16* 1rem);
+$wml-file-manager-spacing6: calc(24/16* 1rem);
+$wml-file-manager-spacing7: calc(32/16* 1rem);
+$wml-file-manager-spacing8: calc(48/16* 1rem);
+$wml-file-manager-spacing9: calc(64/16* 1rem);
+$wml-file-manager-spacing10: calc(72/16* 1rem);
+$wml-file-manager-spacing11: calc(96/16* 1rem);
+$wml-file-manager-spacing12: calc(128/16* 1rem);
+$wml-file-manager-spacing13: calc(192/16* 1rem);
+$wml-file-manager-spacing14: calc(256/16* 1rem);
+$wml-file-manager-spacing15: calc(384/16* 1rem);
+$wml-file-manager-spacing16: calc(512/16* 1rem);
+```
+
+## Media Queries
+
+```scss
+$mobileFont: 'only screen and (max-width: 600px)';
+$mobile: 'only screen and (max-width: 767px)';
+$smallMobile: 'only screen and (max-width: 320px)';
+$mediumMobile: 'only screen and (max-width: 374px)';
+$tablet: 'only screen and (min-width: 768px) and (max-width: 1199px)';
+$tabletPortrait: 'only screen and (min-width: 768px) and (max-width: 991px)';
+$tabletPortraitDown: 'only screen and (max-width: 991px)';
+$tabletLandscape: 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$smallDesktop: 'only screen and (min-width: 992px)';
+$tabletLandscapeDown: 'only screen and (max-width: 1199px)';
+$desktop: 'only screen and (min-width: 1200px)';
+$notMobile: 'only screen and (min-width: 768px)';
+$laptop: 'only screen and (min-width: 1200px) and (max-width: 1440px)';
+$laptopDown: 'only screen and (max-width: 1440px)';
+$laptopTablet: 'only screen and (min-width: 768px) and (max-width: 1440px)';
+$laptopTabletLandscape: 'only screen and (min-width: 992px) and (max-width: 1440px)';
+$largeDesktop: 'only screen and (min-width: 1441px)';
+$largeDesktopDown: 'only screen and (max-width: 1599px)';
+$xlDesktop: 'only screen and (min-width: 1600px)';
+$xlDesktopDown: 'only screen and (max-width: 1919px)';
+$xxlDesktop: 'only screen and (min-width: 1920px)';
+$xxxlDesktop: 'only screen and (min-width: 2000px)';
+$desktopDownForCampaigns: 'only screen and (max-width: 1250px)';
+
+:root {
+  --wml-file-manager-mobile-font: #{$mobileFont};
+  --wml-file-manager-mobile: #{$mobile};
+  --wml-file-manager-small-mobile: #{$smallMobile};
+  --wml-file-manager-medium-mobile: #{$mediumMobile};
+  --wml-file-manager-tablet: #{$tablet};
+  --wml-file-manager-tablet-portrait: #{$tabletPortrait};
+  --wml-file-manager-tablet-portrait-down: #{$tabletPortraitDown};
+  --wml-file-manager-tablet-landscape: #{$tabletLandscape};
+  --wml-file-manager-small-desktop: #{$smallDesktop};
+  --wml-file-manager-tablet-landscape-down: #{$tabletLandscapeDown};
+  --wml-file-manager-desktop: #{$desktop};
+  --wml-file-manager-not-mobile: #{$notMobile};
+  --wml-file-manager-laptop: #{$laptop};
+  --wml-file-manager-laptop-down: #{$laptopDown};
+  --wml-file-manager-laptop-tablet: #{$laptopTablet};
+  --wml-file-manager-laptop-tablet-landscape: #{$laptopTabletLandscape};
+  --wml-file-manager-large-desktop: #{$largeDesktop};
+  --wml-file-manager-large-desktop-down: #{$largeDesktopDown};
+  --wml-file-manager-xl-desktop: #{$xlDesktop};
+  --wml-file-manager-xl-desktop-down: #{$xlDesktopDown};
+  --wml-file-manager-xxl-desktop: #{$xxlDesktop};
+  --wml-file-manager-xxxl-desktop: #{$xxxlDesktop};
+  --wml-file-manager-desktop-down-for-campaigns: #{$desktopDownForCampaigns};
+}
+```
+
+# Reference
+
+### Properties
+
+| Property                   | Type                                  | Description                                                   |
+|----------------------------|---------------------------------------|---------------------------------------------------------------|
+| `props`                    | `WMLFileUploadZeroProps`              | Configuration parameters for the file upload component.       |
+
+### `WMLFileUploadZeroProps` Configuration
+
+| Property                  | Type                              | Description                                                     |
+|---------------------------|-----------------------------------|-----------------------------------------------------------------|
+| `automation`              | `boolean`                         | If set to true, enables automation features.                    |
+| `files`                   | `WMLFileUploadZeroItem[]`         | The list of files to be uploaded.                               |
+|
+
+ `dragDropText`            | `string`                          | Text displayed for the drag-and-drop area.                      |
+| `browseFileText`          | `string`                          | Text displayed on the browse button.                            |
+| `limit`                   | `number`                          | The maximum number of files that can be uploaded.               |
+| `formArray`               | `FormArray<AbstractControl>`      | Angular FormArray to track the state of uploads.                |
+| `duplicates`              | `boolean`                         | Whether to allow duplicate files.                               |
+| `uploadFn`                | `Function`                        | Function to call when a file is uploaded.                       |
+| `updateFormArrayPredicate`| `Function`                        | Function to update the FormArray based on current files.        |
+| `uploadAllowedPredicate`  | `(file: File, fileList: File[]) => boolean` | Function to determine if a file upload is allowed.  |
+| `afterUploadPredicate`    | `() => WMLFileUploadZeroItem[]`   | Function called after files are selected/uploaded.              |
+
+### Methods
+
+These are methods you might need to interact with in your component:
+
+| Method                   | Parameters                         | Return Type | Description                                              |
+|--------------------------|------------------------------------|-------------|----------------------------------------------------------|
+| `chooseFiles`            | `myFileList: FileList \| Array<any>` | `void`      | Triggers the file selection and processes the selected files. |
+| `uploadFile`             | `item: WMLFileUploadZeroItem`      | `void`      | Initiates the upload process for a single file item.     |
+| `deleteFile`             | `item: WMLFileUploadZeroItem`      | `void`      | Removes a file from the list of files to be uploaded.    |
+| `retryUpload`            | `item: WMLFileUploadZeroItem`      | `void`      | Retries the upload process for a file.                   |
+| `cancelUpload`           | `item: WMLFileUploadZeroItem`      | `void`      | Cancels the upload process for a file.                   |
