@@ -1,226 +1,1231 @@
 See the contents of this angular library
 
 Create an Overview Installation Usage CSS Customization and Reference Section for this code
-heres the readme for previous reference however be careful the code has updated since then optimzie the output as a page to be put a starlight astro website system for documentation purposes
-
-# FileName: \README.md
-
-# Overview
-
-The Windmillcode Angular WML Accordion Zero library provides a set of components and services to create accordion functionalities in Angular applications. Central to the library is the WMLAccordionZeroComponent, designed to enable developers to implement accordion structures efficiently. This library facilitates the development of accordions with features like dynamic content loading, customizable sections, and animation controls, all grounded in the WMLUIProperty framework to ensure consistency in development practices.  By leveraging these components, developers can construct accordions that are responsive and adaptable to various content types and user interactions, enhancing the informational architecture of Angular-based web applications.
-
-WMLAccordionZeroComponent is the container which is populated with WMLAccordionZeroItemComponent to populate the accordion. WMLAccordionZeroItemComponent is a dynamic component and by defuault is uses WMLAccordionZeroSampleComponent as the accordion body and WMLAccordionZeroTitleComponent as the title of the accordion. you will want to replace
-
-# Installation
-```bash
-npm install -s @windmillcode/angular-wml-accordion
-```
-
-# Usage
-Certainly! Below are some usage examples of the WML Accordion Zero library for various development needs:
-
-### 1. Accordion Usage
 
 
-at its very core this is all you need to get started with the accordion
-as default parameters already exist to show you how to use the accordion
-```typescript
-import { WMLAccordionZeroComponent, WMLAccordionZeroProps } from '@windmillcode/angular-wml-accordion';
 
-@Component({
-  selector: 'app-example',
-  template: `
-    <wml-accordion-zero [props]="accordionProps"></wml-accordion-zero>
-  `
-})
-export class AppComponent {
-  accordionProps = new WMLAccordionZeroProps({})
+
+# FileName: \_color_pallete.scss
+
+@use "sass:string";
+
+@function to-number($value) {
+    @if type-of($value) == 'number' {
+      @return $value;
+    } @else if type-of($value) != 'string' {
+      $_: log('Value for `to-number` should be a number or a string.');
+    }
+
+    $result: 0;
+    $digits: 0;
+    $minus: str-slice($value, 1, 1) == '-';
+    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+
+    @for $i from if($minus, 2, 1) through str-length($value) {
+      $character: str-slice($value, $i, $i);
+
+      @if not (index(map-keys($numbers), $character) or $character == '.') {
+        @return to-length(if($minus, -$result, $result), str-slice($value, $i))
+      }
+
+      @if $character == '.' {
+        $digits: 1;
+      } @else if $digits == 0 {
+        $result: $result * 10 + map-get($numbers, $character);
+      } @else {
+        $digits: $digits * 10;
+        $result: $result + map-get($numbers, $character) / $digits;
+      }
+    }
+
+    @return if($minus, -$result, $result);;
+  }
+
+@function convert-to-rgb($color) {
+  $channels: string.split($color, ",");
+  @return rgb(to-number(nth($channels, 1)),to-number(nth($channels, 2)),to-number(nth($channels, 3)));
 }
-```
 
-This example demonstrates a simple accordion with two sections:
 
-```typescript
-import { WMLAccordionZeroComponent, WMLAccordionZeroProps } from '@windmillcode/angular-wml-accordion';
+$wml-button-white: "255,255,255";
+$wml-button-black: "0,0,0";
+$wml-button-primary: "144,238,144";
+$wml-button-secondary:"112,112,112";
 
-@Component({
-  selector: 'app-example',
-  template: `
-    <wml-accordion-zero [props]="accordionProps"></wml-accordion-zero>
-  `
-})
-export class AppComponent {
-  accordionProps = new WMLAccordionZeroProps({
-    items: [
-      [
-        new WMLAccordionZeroItemProps({
-          title: 'Section 1',
-          accordionBody: new WMLCustomComponent({
-            cpnt: MyContentComponent1,
-            props: new MyContentProps1({/* props */})
-          })
-        })
-      ],
-      [
-        new WMLAccordionZeroItemProps({
-          title: 'Section 2',
-          accordionBody: new WMLCustomComponent({
-            cpnt: MyContentComponent2,
-            props: new MyContentProps2({/* props */})
-          })
-        })
-      ]
-    ]
-  });
+$wml-button-primary-gradient:   radial-gradient(farthest-corner at 100% 0px,convert-to-rgb($wml-button-primary) 0%,convert-to-rgb($wml-button-secondary) 150%);
+$wml-button-secondary-gradient: radial-gradient(farthest-corner at 100% 0px,grey 0%,convert-to-rgb($wml-button-black) 150%);
+
+
+:root{
+  --wml-button-white:#{$wml-button-white};
+  --wml-button-black:#{$wml-button-black};
+  --wml-button-primary:#{$wml-button-primary};
+  --wml-button-secondary:#{$wml-button-secondary};
+
+  --wml-button-primary-gradient: #{$wml-button-primary-gradient};
+  --wml-button-secondary-gradient: #{$wml-button-secondary-gradient};
+
 }
-```
 
-### 2. Accordion with Dynamic Content Loading
+# FileName: \_common.scss
 
-This example shows how to dynamically load content into the accordion sections:
+$wml-button-border-radius0:calc(8/16 * 1rem);
+$wml-button-border-radius1:calc(10/16 * 1rem);
+$wml-button-border-radius2:calc(20/16 * 1rem);
 
-```typescript
-// Assume MyDynamicContentComponent can change its content based on provided props
-accordionProps.items[0][0].updateAccordionBodySubj.next(new WMLCustomComponent({
-  cpnt: MyDynamicContentComponent,
-  props: new MyDynamicContentProps({contentId: 'dynamic-content-1'})
-}));
-```
+# FileName: \_media_queries.scss
 
-### 3. Controlling Accordion State
+/***********************************************
+ Media query variables
+***********************************************/
 
-Demonstrating how developers can programmatically open or close accordion sections:
+/* media queries */
+$mobileFont:                  'only screen and (max-width: 600px)';
+$mobile:              		    'only screen and (max-width: 767px)';
+// $mobile:              		    'only screen and (max-width: 899px)';
+$smallMobile:				    'only screen and (max-width: 320px)';
+$mediumMobile:				    'only screen and (max-width: 374px)';
+$tablet:              		    'only screen and (min-width: 768px) and (max-width: 1199px)';
+$tabletPortrait:      		    'only screen and (min-width: 768px) and (max-width: 991px)';
+$tabletPortraitDown:  		    'only screen and (max-width: 991px)';
+$tabletLandscape:     		    'only screen and (min-width: 992px) and (max-width: 1199px)';
+$smallDesktop:             	    'only screen and (min-width: 992px)';
+$tabletLandscapeDown: 		    'only screen and (max-width: 1199px)';
+$desktop:             		    'only screen and (min-width: 1200px)';
+$notMobile:           		    'only screen and (min-width: 768px)';
+$laptop:              		    'only screen and (min-width: 1200px) and (max-width: 1440px)';
+$laptopDown:          		    'only screen and (max-width: 1440px)';
+$laptopTablet:        		    'only screen and (min-width: 768px) and (max-width: 1440px)';
+$laptopTabletLandscape:         'only screen and (min-width: 992px) and (max-width: 1440px)';
+$largeDesktop:        		    'only screen and (min-width: 1441px)';
+$largeDesktopDown:        	    'only screen and (max-width: 1599px)';
+$xlDesktop:           		    'only screen and (min-width: 1600px)';
+$xlDesktopDown:           	    'only screen and (max-width: 1919px)';
+$xxlDesktop:           		    'only screen and (min-width: 1920px)';
 
-```typescript
-// Open the first section
-accordionProps.items[0][0].toggleAccordionSubj.next({ val: false, emit: true });
+$xxxlDesktop:           	    'only screen and (min-width: 2000px)';
+$dekstopDownForCampaigns:	    'only screen and (max-width: 1250px)';
 
-// Close the first section
-accordionProps.items[0][0].toggleAccordionSubj.next({ val: true, emit: true });
-```
+/* media queries for header */
+$tabletForHeader:              	'only screen and (min-width: 768px) and (max-width: 1230px)';
+$tabletLandscapeForHeader:     	'only screen and (min-width: 992px) and (max-width: 1230px)';
+$tabletLandscapeDownForHeader: 	'only screen and (max-width: 1230px)';
+$desktopForHeader:             	'only screen and (min-width: 1231px)';
+$laptopForHeader:              	'only screen and (min-width: 1231px) and (max-width: 1440px)';
 
-### 4. Custom Animation Timing
 
-This example modifies the default animation timing for the opening and closing of accordion items:
+:root {
+  --wml-button-mobile-font: #{$mobileFont};
+  --wml-button-mobile: #{$mobile};
+  --wml-button-small-mobile: #{$smallMobile};
+  --wml-button-medium-mobile: #{$mediumMobile};
+  --wml-button-tablet: #{$tablet};
+  --wml-button-tablet-portrait: #{$tabletPortrait};
+  --wml-button-tablet-portrait-down: #{$tabletPortraitDown};
+  --wml-button-tablet-landscape: #{$tabletLandscape};
+  --wml-button-small-desktop: #{$smallDesktop};
+  --wml-button-tablet-landscape-down: #{$tabletLandscapeDown};
+  --wml-button-desktop: #{$desktop};
+  --wml-button-not-mobile: #{$notMobile};
+  --wml-button-laptop: #{$laptop};
+  --wml-button-laptop-down: #{$laptopDown};
+  --wml-button-laptop-tablet: #{$laptopTablet};
+  --wml-button-laptop-tablet-landscape: #{$laptopTabletLandscape};
+  --wml-button-large-desktop: #{$largeDesktop};
+  --wml-button-large-desktop-down: #{$largeDesktopDown};
+  --wml-button-xl-desktop: #{$xlDesktop};
+  --wml-button-xl-desktop-down: #{$xlDesktopDown};
+  --wml-button-xxl-desktop: #{$xxlDesktop};
+  --wml-button-xxxl-desktop: #{$xxxlDesktop};
+  --wml-button-dekstop-down-for-campaigns: #{$dekstopDownForCampaigns};
+  --wml-button-tablet-for-header: #{$tabletForHeader};
+  --wml-button-tablet-landscape-for-header: #{$tabletLandscapeForHeader};
+  --wml-button-tablet-landscape-down-for-header: #{$tabletLandscapeDownForHeader};
+  --wml-button-desktop-for-header: #{$desktopForHeader};
+  --wml-button-laptop-for-header: #{$laptopForHeader};
+}
 
-```typescript
-accordionProps.items.forEach(group => {
-  group.forEach(item => {
-    item.startHeight = '0rem';
-    item.endHeight0 = '10rem'; // Adjust as needed
-    item.animationDuration0 = '0.5s'; // Speed up the animation
-    item.animationDuration1 = '0.25s'; // Speed up the closing animation
-  });
-});
-```
+# FileName: \_spacing.scss
 
-## Customization
-There are the [color pallete](./_color_pallete.scss)
-and [media queries](./_media_queries.scss) that you can use to customize the accordion. in your css simply replace the values with the ones you want to use and the component will take on the look. the variables are very specific and even named after the component to avoid any overlapping issues
+$wml-button-spacing0: calc(1/16* 1rem);
+$wml-button-spacing1: calc(2/16* 1rem);
+$wml-button-spacing2: calc(4/16* 1rem);
+$wml-button-spacing3: calc(8/16* 1rem);
+$wml-button-spacing4: calc(12/16* 1rem);
+$wml-button-spacing5: calc(16/16* 1rem);
+$wml-button-spacing6: calc(24/16* 1rem);
+$wml-button-spacing7: calc(32/16* 1rem);
+$wml-button-spacing8: calc(48/16* 1rem);
+$wml-button-spacing9: calc(64/16* 1rem);
+$wml-button-spacing10: calc(72/16* 1rem);
+$wml-button-spacing11: calc(96/16* 1rem);
+$wml-button-spacing12: calc(128/16* 1rem);
+$wml-button-spacing13: calc(192/16* 1rem);
+$wml-button-spacing14: calc(256/16* 1rem);
+$wml-button-spacing15: calc(384/16* 1rem);
+$wml-button-spacing16: calc(512/16* 1rem);
 
-### CSS Customization
 
-# CSS Customization
-* to globally customize in your  css file
 
-```py
-.WMLAccordionZeroView {
-  &MainPod {
-    &Pod {
-      &ItemMainPod {
-        &ItemPod0 {
-          &Icon0 {}
-          &Title0 {}
-        }
-        &ItemPod1 {
-          &ContentPod {}
+
+# FileName: \src\lib\models.ts
+
+export type WMLButtonIconType = "img" |"icon"
+export enum WMLButtonPropsTypeEnum{
+  PRIMARY,SECONDARY,TERTIARY
+}
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.global.scss
+
+#root wml-button-one{
+
+}
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.html
+
+<button  *ngIf="props.btnIsPresent && !props.link && !props.routerLink"  (click)="props.click($event)" [class]="props.btnClass" [ngStyle]="props.btnStyle">
+  <ng-container *ngIf="props.iconIsPresent" >
+    <img *ngIf="props.iconType === 'img'" [src]=props.iconSrc [alt]="props.iconAlt" [class]="props.iconClass" />
+    <i *ngIf="props.iconType === 'icon'"  [class]="props.iconClass"></i>
+  </ng-container>
+  <span [ngStyle]="props.style" [class]="props.class">{{ props.text | translate}}</span>
+</button>
+
+<a [href]="props.link" *ngIf="props.btnIsPresent && props.link"    [class]="props.btnClass + ' ' + classPrefix('MainLink0')" [ngStyle]="props.btnStyle">
+  <ng-container *ngIf="props.iconIsPresent" >
+    <img *ngIf="props.iconType === 'img'" [src]=props.iconSrc [alt]="props.iconAlt" [class]="props.iconClass" />
+    <i *ngIf="props.iconType === 'icon'"  [class]="props.iconClass"></i>
+  </ng-container>
+  <span [ngStyle]="props.style" [class]="props.class">{{ props.text | translate}}</span>
+</a>
+
+<a [routerLink]="props.routerLink" *ngIf="props.btnIsPresent && props.routerLink"    [class]="props.btnClass + ' ' + classPrefix('MainLink0')" [ngStyle]="props.btnStyle">
+  <ng-container *ngIf="props.iconIsPresent" >
+    <img *ngIf="props.iconType === 'img'" [src]=props.iconSrc [alt]="props.iconAlt" [class]="props.iconClass" />
+    <i *ngIf="props.iconType === 'icon'"  [class]="props.iconClass"></i>
+  </ng-container>
+  <span [ngStyle]="props.style" [class]="props.class">{{ props.text | translate}}</span>
+</a>
+
+
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.phone.scss
+
+#root wml-button-one{
+  @media #{$mobile}{
+
+  }
+}
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.scss
+
+@import "../../../../styles.scss";
+
+
+.WMLButtonOne{
+  &Main{
+
+
+    &Button,&Link {
+      @for $i from 0 through 2 {
+        &#{$i} {
+
+          @include WMLButtonMainButton0;
+          @include WMLCursorPointer0;
+          transition:  all $wml-transition-0;
         }
       }
     }
   }
 }
 
+
+
+// :host {
+
+  .WMLButtonOneView{
+    display: block;
+
+    .WMLButtonOne{
+      &Main{
+        &Pod{
+
+        }
+
+        &Link {
+          &0 {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border: none; /* Ensure there is no border */
+
+            // hope this does not change for some reason
+            span{
+              font-size: calc((10.6/10.6 *(13.3 / 10.6)) * 1em) ;
+            }
+          }
+        }
+
+        &Button {
+
+
+          &0 {
+            background: rgba(var(--wml-button-primary));
+            border:calc(3/16 * 1rem) solid rgba(var(--wml-button-black));
+            &:hover{
+              background: rgba(var(--wml-button-secondary));
+              border:calc(3/16 * 1rem) solid rgba(var(--wml-button-white));
+              .WMLButtonOneMainButton0Text0 {
+                color:rgba(var(--wml-button-white))
+              }
+            }
+
+            &Text {
+              &0 {
+                color:rgba(var(--wml-button-black))
+              }
+            }
+
+          }
+
+          &1 {
+            background: $wml-gradient-0;
+
+            border:calc(3/16 * 1rem) solid rgba(var(--wml-button-white));
+
+            &Text {
+              &0 {
+                color:rgba(var(--wml-button-white))
+              }
+            }
+
+            &:hover{
+              background: rgba(var(--wml-button-primary));
+              border:calc(3/16 * 1rem) solid rgba(var(--wml-button-black));
+              .WMLButtonOneMainButton1Text0 {
+                color:rgba(var(--wml-button-black));
+              }
+            }
+
+
+          }
+
+          &2 {
+            background-color: rgba(var(--wml-button-black));
+            border:calc(3/16 * 1rem) solid rgba(var(--wml-button-primary));
+            &Text {
+              &0 {
+                color:rgba(var(--wml-button-primary))
+              }
+            }
+            &:hover{
+              background: rgba(var(--wml-button-secondary));
+              border:calc(3/16 * 1rem) solid rgba(var(--wml-button-primary));
+              .WMLButtonOneMainButton2Text0 {
+                color:rgba(var(--wml-button-primary))
+              }
+            }
+          }
+        }
+
+      }
+      &Pod{
+
+        &0{}
+      }
+    }
+  }
+
+// }
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.spec.ts
+
+// testing
+import { ComponentFixture } from '@angular/core/testing';
+import { resetImports } from '../test-utils/mock-imports';
+import { resetProviders } from '../test-utils/mock-providers';
+import { wmlTestUtils } from '../test-utils/test-utils';
+// rxjs
+import { Subject } from 'rxjs';
+
+import { WMLButtonOneComponent } from './wml-button-one.component';
+import { resetDeclarations } from '../test-utils/mock-declarations';
+
+
+describe('WMLButtonOneComponent', () => {
+  let cpnt: WMLButtonOneComponent;
+  let fixture: ComponentFixture<WMLButtonOneComponent>;
+
+  beforeEach(async () => {
+    resetImports()
+    resetProviders()
+    resetDeclarations()
+
+
+    await wmlTestUtils.configureTestingModuleForComponents(WMLButtonOneComponent);
+
+
+    ({fixture, cpnt} = wmlTestUtils.grabComponentInstance(WMLButtonOneComponent));
+    fixture.detectChanges()
+  })
+
+  describe("init", () => {
+
+    it("should create", () => {
+      expect(cpnt).toBeTruthy()
+    })
+
+    it("should have all values initalize properly", () => {
+      expect(cpnt.myClass).toEqual('WMLButtonOneView')
+    })
+
+    it("should have all properties be the correct class instance", () => {
+      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
+    })
+  })
+
+  describe("ngOnDestroy",()=>{
+
+    beforeEach(()=>{
+      spyOn(cpnt.ngUnsub,'next')
+      spyOn(cpnt.ngUnsub,'complete')
+    })
+
+    it(` when called |
+     as appropriate |
+     does the required action `,()=>{
+        // act
+        cpnt.ngOnDestroy();
+
+        // assert
+        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
+        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
+    })
+  })
+});
+
+# FileName: \src\lib\wml-button-one\wml-button-one\wml-button-one.component.ts
+
+// angular
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input, ViewEncapsulation   } from '@angular/core';
+import { WMLButton, generateClassPrefix, updateClassString } from '@windmillcode/angular-wml-components-base';
+
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil,tap } from 'rxjs/operators';
+import { WMLButtonIconType, WMLButtonPropsTypeEnum } from '../../models';
+
+// misc
+@Component({
+  selector: 'wml-button-one',
+  templateUrl: './wml-button-one.component.html',
+  styleUrls: ['./wml-button-one.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush,
+  encapsulation:ViewEncapsulation.None
+})
+export class WMLButtonOneComponent  {
+
+  constructor(
+    public cdref:ChangeDetectorRef,
+  ) { }
+
+  classPrefix = generateClassPrefix('WMLButtonOne')
+  @HostBinding('class') myClass: string = this.classPrefix(`View`);
+  @HostBinding('id') myId?:string
+  @Input('props') props: WMLButtonOneProps = new WMLButtonOneProps({})
+  ngUnsub= new Subject<void>()
+
+  listenForUpdate = ()=>{
+    return this.props.updateSubj
+    .pipe(
+      takeUntil(this.ngUnsub),
+      tap((res?)=>{
+        this.props = new WMLButtonOneProps({
+          ...this.props,
+          ...(res ?? this.props)
+        })
+        this.cdref.detectChanges()
+      })
+    )
+
+  }
+
+  ngOnInit(): void {
+    this.listenForUpdate().subscribe()
+    this.props.cdref = this.cdref
+    this.myId = this.props.id
+
+    this.props.updateClassString = (...args)=>{
+      updateClassString(this.props,"_class","_classList")(...args)
+      this.cdref.detectChanges()
+    }
+
+    this.props.updateBtnClassString = (...args)=>{
+      updateClassString(this.props,"_btnClass","_btnClassList")(...args)
+      this.cdref.detectChanges()
+    }
+
+    this.props.updateIconClassString = (...args)=>{
+      updateClassString(this.props,"_iconClass","_iconClassList")(...args)
+      this.cdref.detectChanges()
+    }
+
+
+  }
+
+  ngOnDestroy(){
+    this.ngUnsub.next();
+    this.ngUnsub.complete()
+  }
+
+}
+
+
+// @ts-ignore
+export class WMLButtonOneProps extends WMLButton {
+  constructor(props:Partial<WMLButtonOneProps>={}){
+    super()
+    Object.assign(
+      this,
+      {
+        ...props
+      }
+    )
+    // TODO this needs to be here because typescript decided to be a pain
+    // @ts-ignore
+    if([null,undefined].includes( this.type) ){
+      this.type = WMLButtonPropsTypeEnum.PRIMARY
+    }
+    this.updateBtnClasses(this.type)
+
+  }
+
+  private override  buttonClass =""
+  private _btnClass:string = ""
+  private _btnClassList:string[] = []
+  get btnClass (){
+    return this._btnClass
+  }
+  set btnClass(val){
+    this.updateBtnClassString(val)
+  }
+  btnStyle:Partial<CSSStyleDeclaration> = {}
+  btnIsPresent = true
+  private _type =WMLButtonPropsTypeEnum.PRIMARY
+  // @ts-ignore
+  override get type(){
+    return this._type
+  }
+  override set type(value:WMLButtonPropsTypeEnum){
+    this.updateBtnClasses(value)
+    this._type = value
+  }
+  iconType:WMLButtonIconType = "img"
+
+  override text = "Click Me"
+
+  updateBtnClassString=updateClassString(this,"_btnClass","_btnClassList")
+  private updateBtnClasses(value:WMLButtonPropsTypeEnum){
+    let val = {
+      [WMLButtonPropsTypeEnum.PRIMARY]:"0",
+      [WMLButtonPropsTypeEnum.SECONDARY]:"1",
+      [WMLButtonPropsTypeEnum.TERTIARY]:"2"
+    }[value]
+    this.updateBtnClassString("WMLButtonOneMainButton"+val);
+    this.class = "WMLButtonOneMainButton" + val +"Text0"
+  }
+  override click =(evt?)=>{
+    alert("This button was clicked")
+  }
+  updateSubj = new Subject<Partial<WMLButtonOneProps>>()
+
+  link?:string
+  routerLink?: string
+}
+
+
+
+# FileName: \src\lib\wml-button-one\wml-button-one.module.ts
+
+
+
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { WMLNGXTranslateLoader, WMLNGXTranslateMockPipe, WMLNGXTranslatePipe } from '@windmillcode/angular-wml-components-base';
+import { WMLButtonOneComponent } from './wml-button-one/wml-button-one.component';
+import { RouterModule } from '@angular/router';
+
+let cpnts= [
+  WMLButtonOneComponent
+]
+
+@NgModule({
+  declarations: [
+    ...cpnts,
+  ],
+  imports: [
+    WMLNGXTranslatePipe,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
+  exports:[
+    ...cpnts
+  ],
+  providers:[
+    {provide: WMLNGXTranslatePipe,useValue: WMLNGXTranslateMockPipe}
+  ],
+})
+export class WMLButtonOneNGXTranslateModule {
+
+}
+
+@NgModule({
+  imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+
+        provide: TranslateLoader,
+        useFactory: ()=> new WMLNGXTranslateLoader(),
+      }
+    }),
+  ],
+  exports:[
+    WMLButtonOneNGXTranslateModule
+  ]
+})
+export class WMLButtonOneModule {
+
+}
+
+
+
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.global.scss
+
+#root wml-button{
+
+}
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.html
+
+<button [attr.id]="props.button.id"  (click)="props.button.click($event)" [class]="props.button.class" [ngStyle]="props.button.style">
+  <ng-container *ngFor="let icon of props.icons">
+    <ng-container *ngIf="icon.isPresent" >
+      <img [attr.id]="icon.id" *ngIf="icon.type === 'img'" [src]=icon.src [alt]="icon.alt" [class]="icon.class" [ngStyle]="icon.style"/>
+      <i   [attr.id]="icon.id" *ngIf="icon.type === 'icon'"  [class]="icon.class" [ngStyle]="icon.style"></i>
+    </ng-container>
+  </ng-container>
+  <span
+  *ngIf="props.text.isPresent"
+  [attr.id]="props.text.id" [ngStyle]="props.text.style" [class]="props.text.class">{{ props.text.text! | translate}}</span>
+</button>
+
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.phone.scss
+
+#root wml-button{
+  @media #{$mobile}{
+
+  }
+}
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.scss
+
+@import "../../../../styles.scss";
+
+
+:host {
+
+  &.WMLButtonZeroView{
+    display: block;
+
+    .WMLButtonZero{
+      &Main{
+        &Pod{
+
+
+        }
+
+        &Button {
+          @for $i from 0 through 2 {
+            &#{$i} {
+              @include WMLButtonMainButton0;
+              @include WMLCursorPointer0;
+              transition:  all $wml-transition-0;
+            }
+          }
+
+          &0 {
+            background: $wml-primary;
+            border:calc(3/16 * 1rem) solid $wml-black;
+            &:hover{
+              background: $wml-secondary;
+              border:calc(3/16 * 1rem) solid $wml-white;
+              .WMLButtonZeroMainButton0Text0 {
+                color:$wml-white
+              }
+            }
+
+            &Text {
+              &0 {
+                color:$wml-black
+              }
+            }
+
+          }
+
+          &1 {
+            background: $wml-gradient-0;
+            border:calc(3/16 * 1rem) solid $wml-white;
+
+            &Text {
+              &0 {
+                color:$wml-white
+              }
+            }
+
+            &:hover{
+              background: $wml-primary;
+              border:calc(3/16 * 1rem) solid $wml-black;
+              .WMLButtonZeroMainButton1Text0 {
+                color:$wml-black;
+              }
+            }
+
+
+          }
+
+          &2 {
+            background-color: $wml-black;
+            border:calc(3/16 * 1rem) solid $wml-primary;
+            &Text {
+              &0 {
+                color:$wml-primary
+              }
+            }
+            &:hover{
+              background: $wml-secondary;
+              border:calc(3/16 * 1rem) solid $wml-primary;
+              .WMLButtonZeroMainButton2Text0 {
+                color:$wml-primary
+              }
+            }
+          }
+        }
+
+      }
+      &Pod{
+
+        &0{}
+      }
+    }
+  }
+
+}
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.spec.ts
+
+// testing
+import { ComponentFixture } from '@angular/core/testing';
+import { resetImports } from '../test-utils/mock-imports';
+import { resetProviders } from '../test-utils/mock-providers';
+import { wmlTestUtils } from '../test-utils/test-utils';
+// rxjs
+import { Subject } from 'rxjs';
+
+import { WMLButtonZeroComponent } from './wml-button-zero.component';
+
+
+describe('WMLButtonZeroComponent', () => {
+  let cpnt: WMLButtonZeroComponent;
+  let fixture: ComponentFixture<WMLButtonZeroComponent>;
+
+  beforeEach(async () => {
+
+
+
+    await wmlTestUtils.configureTestingModuleForComponents(WMLButtonZeroComponent);
+
+
+    ({fixture, cpnt} = wmlTestUtils.grabComponentInstance(WMLButtonZeroComponent));
+    fixture.detectChanges()
+  })
+
+  describe("init", () => {
+
+    it("should create", () => {
+      expect(cpnt).toBeTruthy()
+    })
+
+    it("should have all values initalize properly", () => {
+      expect(cpnt.myClass).toEqual('WMLButtonZeroView')
+    })
+
+    it("should have all properties be the correct class instance", () => {
+      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
+    })
+  })
+
+  describe("ngOnDestroy",()=>{
+
+    beforeEach(()=>{
+      spyOn(cpnt.ngUnsub,'next')
+      spyOn(cpnt.ngUnsub,'complete')
+    })
+
+    it(` when called |
+     as appropriate |
+     does the required action `,()=>{
+        // act
+        cpnt.ngOnDestroy();
+
+        // assert
+        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
+        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
+    })
+  })
+});
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero\wml-button-zero.component.ts
+
+// angular
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input   } from '@angular/core';
+
+
+
+
+// rxjs
+import { Subject, from } from 'rxjs';
+import { takeUntil,tap } from 'rxjs/operators';
+import {WMLUIProperty,WMLButton2, WMLImage, WMLButton, generateClassPrefix} from "@windmillcode/angular-wml-components-base"
+// misc
+import {WMLButtonIconType, WMLButtonPropsTypeEnum} from '../../models';
+
+
+@Component({
+  selector: 'wml-button-zero',
+  templateUrl: './wml-button-zero.component.html',
+  styleUrls: ['./wml-button-zero.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush,
+
+})
+export class WMLButtonZeroComponent  {
+
+  constructor(
+    public cdref:ChangeDetectorRef,
+
+  ) { }
+
+
+  classPrefix = generateClassPrefix('WMLButtonZero')
+
+
+  @HostBinding('class') myClass: string = this.classPrefix(`View`);
+  @HostBinding('id') myId?:string
+  @Input('props') props: WMLButtonZeroProps = new WMLButtonZeroProps()
+  ngUnsub= new Subject<void>()
+
+  listenForUpdate = ()=>{
+    return this.props.updateSubj
+    .pipe(
+      takeUntil(this.ngUnsub),
+      tap((res?)=>{
+        this.props = new WMLButtonZeroProps({
+          ...this.props,
+          ...(res ?? this.props)
+        })
+        this.cdref.detectChanges()
+      })
+    )
+
+  }
+
+  checkPropsInstance = ()=>{
+    return this.props.constructor.name
+  }
+  ngOnInit(): void {
+    this.listenForUpdate().subscribe()
+    this.props.cdref = this.cdref
+    this.myId = this.props.id
+
+  }
+
+  ngOnDestroy(){
+    this.ngUnsub.next();
+    this.ngUnsub.complete()
+  }
+
+}
+
+
+
+export class WMLButtonZeroProps extends WMLButton2 {
+  constructor(props:Partial<WMLButtonZeroProps >={}){
+    super();
+
+    Object.assign(
+      this,
+      {
+        ...props
+      }
+    )
+    this.updateBtnClasses(this.type)
+    this.icons = this.icons.map((icon)=>{
+      icon.type = icon.type ?? "img"
+      return icon
+    })
+
+
+  }
+  id?:string
+  cdref?:ChangeDetectorRef
+  updateSubj = new Subject<Partial<WMLButtonZeroProps>>()
+  private _type =WMLButtonPropsTypeEnum.PRIMARY
+  get type(){
+    return this._type
+  }
+  set type(value:WMLButtonPropsTypeEnum){
+    this.updateBtnClasses(value)
+    // @ts-ignore
+    this._type = value
+  }
+  private updateBtnClasses(value:WMLButtonPropsTypeEnum){
+    let val = {
+      [WMLButtonPropsTypeEnum.PRIMARY]:"0",
+      [WMLButtonPropsTypeEnum.SECONDARY]:"1",
+      [WMLButtonPropsTypeEnum.TERTIARY]:"2"
+    }[value]
+    this.button.class = "WMLButtonZeroMainButton"+val;
+    this.text.class = "WMLButtonZeroMainButton" + val +"Text0"
+  }
+  override text = new WMLUIProperty({
+    text:"Click Me",
+  })
+  override button = new WMLUIProperty({
+    click:()=>{
+      alert("This button was clicked")
+    }
+  })
+  // @ts-ignore
+  override icons = [new WMLImage<any,WMLButtonIconType>({
+    isPresent:false,
+    class:'fa-solid'
+  })]
+
+
+}
+
+
+
+# FileName: \src\lib\wml-button-zero\wml-button-zero.module.ts
+
+
+
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { WMLButtonZeroComponent } from './wml-button-zero/wml-button-zero.component';
+import { CommonModule } from '@angular/common';
+import { WMLNGXTranslateLoader, WMLNGXTranslateMockPipe, WMLNGXTranslatePipe } from '@windmillcode/angular-wml-components-base';
+import { RouterModule } from '@angular/router';
+
+let cpnts= [
+  WMLButtonZeroComponent
+]
+
+@NgModule({
+  declarations: [
+    ...cpnts,
+  ],
+  imports: [
+    WMLNGXTranslatePipe,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
+  exports:[
+    ...cpnts
+  ],
+  providers:[
+    {provide: WMLNGXTranslatePipe,useValue: WMLNGXTranslateMockPipe}
+  ],
+})
+export class WMLButtonZeroNGXTranslateModule {
+
+}
+
+@NgModule({
+  imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+
+        provide: TranslateLoader,
+        useFactory: ()=> new WMLNGXTranslateLoader(),
+      }
+    }),
+  ],
+  exports:[
+    WMLButtonZeroNGXTranslateModule
+  ]
+})
+export class WMLButtonZeroModule {
+
+}
+
+
+
+
+# FileName: \styles.scss
+
+@import "spacing";
+@import "media_queries";
+@import "color_pallete";
+@import "common";
+
+
+$wml-white: rgba(255,255,255);
+$wml-black: rgba(0,0,0);
+$wml-primary: #90ee90;
+$wml-secondary:#707070;
+$wml-gradient-0: radial-gradient(farthest-corner at 100% 0px,grey 0%,#000 150%);
+$wml-overlay-0:rgba(0,0,0,.7);
+$wml-border-radius0:calc(8/16 * 1rem);
+$wml-border-radius1:calc(10/16 * 1rem);
+$wml-border-radius2:calc(20/16 * 1rem);
+$wml-transition-0:1s;
+
+@mixin WMLCursorPointer0{
+  &:hover{
+    cursor: pointer;
+  }
+}
+@mixin WMLButtonMainButton0{
+  border-radius: $wml-border-radius0;
+  padding:$wml-button-spacing3;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  &Text{
+    &0{
+      flex: 1 1 auto;
+      max-width: 100%;
+      white-space: break-spaces;
+      img + &, i + & {
+        margin: 0 0 0 $wml-button-spacing3;
+      }
+    }
+  }
+  img{
+    display: inline;
+    width: calc(29/16 * 1rem);
+    height: auto;
+  }
+  i{
+    font-size: calc(20/16 * 1rem);
+  }
+  img,i{
+    flex:0 1 10%
+  }
+}
+
+
+
+
+
+
+heres the readme for previous reference however be careful the code has updated since then optimzie the output as a page to be put a starlight astro website system for documentation purposes
+
+
+
+# Overview
+
+The `wml-button` library is an Angular-focused toolkit designed to provide developers with versatile and customizable button components. Its primary goal is to offer a streamlined approach to implementing interactive buttons within Angular applications, addressing common challenges such as dynamic content loading, user interaction handling, and flexible styling. By delivering a set of modular and adaptable components, the library aims to enhance the development workflow and enrich the user experience across diverse application scenarios.
+
+Within this library, WmlButtonZeroComponent stands as the central component, offering a comprehensive suite of customization options. It's built to cater to developers seeking to implement buttons with specific behaviors, styles, and functionalities, providing a deep level of control over the component's properties. On the other hand, WmlButtonOneComponent serves as a simpler alternative, designed for use cases that demand a straightforward button with less complexity in customization. While it retains core interactive features, it's streamlined for easier implementation, making it suitable for scenarios where a basic button suffices. This structural differentiation within the library ensures that developers have access to both detailed and simplified button components, aligning with varied application requirements and developer preferences.
+
+
+# Installation
+
+```bash
+npm install -d @windmillcode/angular-wml-button
+```
+## WmlButtonZeroProps
+
+### Properties
+
+| Property       | Type                               | Description |
+| -------------- | ---------------------------------- | ----------- |
+| `id`           | `string`                           | The unique identifier for the button component. |
+| `cdref`        | `ChangeDetectorRef`                | Optional. Angular's `ChangeDetectorRef` associated with the component for triggering change detection manually. |
+| `updateSubj`   | `Subject<Partial<WmlButtonZeroProps>>` | Subject to emit updates for the component. Useful for reactive programming patterns. |
+| `type`         | `WMLButtonPropsTypeEnum`          | The type of the button, which determines its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. |
+| `text`         | `WMLUIProperty`                    | Overrides the `text` property to set the button's display text. |
+| `button`       | `WMLUIProperty`                    | Overrides the `button` property to customize click behavior. |
+| `icons`        | `Array<WMLImage<any, WMLButtonIconType>>` | Overrides the `icons` property to customize the button's icons. |
+
+### Methods
+
+- `constructor(props: Partial<WmlButtonZeroProps> = {})`: Initializes a new instance of the `WmlButtonZeroProps` class with optional parameters for customization.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+
+### Example Usage
+
+```typescript
+let wmlButtonZeroProps = new WmlButtonZeroProps({
+  type: WMLButtonPropsTypeEnum.PRIMARY,
+  text: new WMLUIProperty({ text: "Click Me" }),
+  button: new WMLUIProperty({
+    click: () => {
+      alert("This button was clicked");
+    }
+  }),
+  // Assuming WMLImage and WMLButtonIconType are defined elsewhere
+  icons: [new WMLImage<any, WMLButtonIconType>({ isPresent: false, class: 'fa-solid' })]
+});
+```
+
+## WmlButtonOneProps
+
+### Properties
+
+| Property      | Type                               | Description |
+| ------------- | ---------------------------------- | ----------- |
+| `btnClass`    | `string`                           | Gets or sets the button's primary CSS class. |
+| `btnStyle`    | `Partial<CSSStyleDeclaration>`     | Partial CSS styles for the button. |
+| `btnIsPresent`| `boolean`                          | Indicates whether the button is present in the DOM. |
+| `type`        | `WMLButtonPropsTypeEnum`          | The type of the button, influencing its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. |
+| `iconType`    | `WMLButtonIconType`                | The type of icon used in the button. |
+| `text`        | `string`                           | The display text of the button. |
+| `updateSubj`  | `Subject<Partial<WmlButtonOneProps>>` | Subject to emit updates for the component. |
+
+### Methods
+
+- `constructor(props: Partial<WmlButtonOneProps> = {})`: Initializes a new instance of the `WmlButtonOneProps` class with optional parameters for customization.
+- `updateBtnClassString(value: string)`: Updates the button's primary CSS class.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+- `click(evt?)`: Custom click handler for the button.
+
+### Example Usage
+
+```typescript
+let wmlButtonOneProps = new WmlButtonOneProps({
+  type: WMLButtonPropsTypeEnum.SECONDARY,
+  text: "Click Me",
+  click: (evt?) => {
+    alert("This button was clicked");
+  }
+});
 ```
 
 
+# CSS Customization
+* to globally customize in your  css file
+&[number] represents the button
+&Text&0 represents the btn text
+```py
+.WmlButtonOneMainButton{
+  &0 {
+    &Text {
+      &0 {
 
-#  Docs
+      }
+    }
+  }
 
+  &1 {
+    &Text {
+      &0 {
 
-## WMLAccordionZeroProps
+      }
+    }
+  }
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `id` | `string` | An optional identifier for the accordion component. |
-| `items` | `Array<WMLAccordionZeroItemProps[]>` | An array of accordion item parameters to define each section. |
+  &2 {
+    &Text {
+      &0 {
 
-## WMLAccordionZeroItemProps
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `id` | `string` | An optional identifier for the accordion item. |
-| `title` | `string` | The title text for the accordion item. |
-| `isClosed` | `boolean` | Indicates whether the accordion item is initially closed. |
-| `toggleAccordionEvent` | `Subject<boolean>` | An event that toggles the accordion item's open/close state. |
-| `toggleAccordionSubj` | `Subject<{ val: boolean; emit: boolean }>` | Subject to programmatically toggle the accordion's state. |
-| `accordionBody` | `WMLCustomComponent` | The component to render as the accordion item's body. |
-| `updateAccordionBodySubj` | `Subject<WMLCustomComponent>` | Subject to dynamically update the content of the accordion body. |
-| `startHeight` | `string` | CSS value for the starting height during the opening animation. |
-| `endHeight0` | `string` | CSS value for the end height during the opening animation. |
-| `endHeight1` | `string` | CSS value for the end height during the closing animation. |
-| `animationDuration0` | `string` | Duration of the opening animation. |
-| `animationDuration1` | `string` | Duration of the closing animation. |
-
-## WMLAccordionZeroSampleProps
-
-| Property | Type | Description | Default Value |
-|----------|------|-------------|---------------|
-| `id` | `string` | Identifier for the sample component. | `""` |
-
-## WMLAccordionZeroTitleProps
-
-| Property | Type | Description | Default Value |
-|----------|------|-------------|---------------|
-| `title` | `string` | Text for the accordion title. | `"My Accordion Title"` |
-
-
-These tables provide an overview of the key elements within the WML Accordion Zero library that developers can interact with to customize and control accordion behavior in their Angular applications.
-
-
-These examples illustrate the flexibility and capability of the WML Accordion Zero library in catering to a variety of accordion-related needs in Angular applications, from basic setups to more advanced and dynamic scenarios.
+      }
+    }
+  }
+}
+```
 
 
 # Changelog
-
-v0.0.1
-* can specify multiple accordion with in the component and specifiy your child compoennt as well
-* if you want the accordion body to be the same width as its header fintd the target accordion and specify its width
-```css
-  .WMLAccordionZeroPod0 wml-accordion-zero-item:nth-child(1){
-    flex: 0 0 20%!;(string=
-## v16.2.80
- * updated package to reflect the version  16.2.80 of @angular/core package)
-    width: 20%!;(MISSING)
-  }
-
-```
-v 0.0.2
-* coorect dependencies
-
-v 0.0.3
-* end devs can now decide whether an accordion is open on init or not
-
-
-v 16.2.5-0
-* end devs can control animations values for the the accordion
-here are the default values that get passed to the scss
+  * v0.0.1
+    button is ready to be used
+  * v0.0.2
+    include cursor pointer for the button view
+  * v0.0.3
+    gave hover functionality to the button
+  * 1.0.0
+    BREAKING change  WmlButtonZeroProps.icon changed to WmlButtonZeroProps.icons to represent the multiple icons one can have on the button
+    WmlButtonZeroProps.icons[number] which is a WMLImage now has type of img or icon, if a type is not specified an img is used
+    the icon comes before the text and not after the text
+  * 2.0.0
+    BREAKING CHANGE
+    WmlButtonZeroPropsTypeEnum renamed to WMLButtonPropsTypeEnum
+    created wml-button-one component which leverages wmlButton for easier button creation
+  * 2.1.0
+    * full support for wml-button-one
+  * 2.1.1
+    * add WmlButtonOneProps.btnIsPresent to show and hide buttons
+  * 3.0.0
+    * ensured that there is support for ngx-translate and non ngx-translate features
+    * to enable translation
 ```ts
-  startHeight = "calc(0/10.6 * 1rem)"
-  endHeight0 = "calc(20000/10.6 * 1rem)"
-  endHeight1 = "calc(2000/10.6 * 1rem)"
-  animationDuration0 = "10s"
-  animationDuration1 = "1.25s"
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+    HttpClientModule,
+    WmlButtonZeroModule
+    .forChild(
+      new WMLModuleForRootProps({
+        ngxTranslateLoaderFactory:HttpLoaderFactory
+      })
+    ),
 ```
+    * to disable translation
+```ts
+    WmlButtonZeroModule
+```
+
+## 4.0.1
+  * fixed major problems concerning ngx-translate
+```ts
+// translate
+// first make sure to have ONLY ONE in the imports for AppModule
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    }),
+// then
+WmlButtonZeroNGXTranslateModule
+// for regular
+WmlButtonZeroModule
+```
+## 4.0.5
+* added css id support, and made cdref available on the props
+
+## 4.0.7
+* add id support on the selector element itself
+
+## 16.2.70
+* for wmlbuttonzero, added additional wmluiproperty to button zero
+
 ,
 ## v16.2.80
  * updated package to reflect the version  16.2.80 of @angular/core package,
@@ -247,7 +1252,7 @@ here are the default values that get passed to the scss
 ## v17.0.50
  * updated package to reflect the version  ^17.0.5 of @angular/core package,
 ## v17.0.60
- * updated package to reflect the version  ^17.0.6 of @angular/core package,
+ * updated package to reflect the version  ^17.0.6s of @angular/core package,
 ## v17.0.70
  * updated package to reflect the version  ^17.0.7 of @angular/core package,
 ## v17.0.7100
@@ -261,13 +1266,23 @@ here are the default values that get passed to the scss
 ## v17.0.8100
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ## v17.0.8102
- * updated package to conform with @windmillcode/angular-wml-components-base   ,
+ * updated package to conform with @windmillcode/angular-wml-components-base
 ## v17.0.8103
- * updated package to conform with @windmillcode/angular-wml-components-base   ,
+ * [FIX] ensured that change detection was working for buttons
+,
+## v17.0.8103
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+## v17.0.8104
+  * [FIX] toggle margin between icon and text for wml-button-one when iconIsPresent is set to true
+,
 ## v17.0.9000
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ## v17.0.9001
- * updated package to conform with @windmillcode/angular-wml-components-base   ,
+ * updated package to conform with @windmillcode/angular-wml-components-base
+## v17.0.9002
+  * updated WmlButtonOneProps.click to have optional evt paramaeter
+,
 ## v17.1.0000
  * updated package to reflect the version  ^17.1.0 of @angular/core package,
 ## v17.1.2
@@ -277,15 +1292,18 @@ here are the default values that get passed to the scss
 ## v17.1.2000 [2/5/24]
  * updated package to reflect the version  ^17.1.2 of @angular/core package,
 ## v17.1.2001 [2/8/24]
- * updated package to conform with @windmillcode/angular-wml-components-base   ,
+ * updated package to conform with @windmillcode/angular-wml-components-base
+## v17.1.2002 [2/8/24]
+* corrected code so no text should wrap if the text overflows the button
+,
 ## v17.1.3000 [2/8/24]
  * updated package to reflect the version  ^17.1.3 of @angular/core package,
 ## v17.2.1000 [2/17/24]
  * updated package to reflect the version  ^17.2.1 of @angular/core package
 
-## v17.2.1001 [2/21/24]
- * [UPDATE]  added WMLAccordionZeroItemProps.updateAccordionBodySubj to toggle the accordion body as needed,
- * [UPDATE]  you can customize the title via WMLAccordionZeroItemProps.accordionTitle
+## 17.2.1001 [2/21/24]
+* [UPDATE] added WmlButtonZeroProps.listenForUpdate amd WmlButtonOneProps.listenForUpdate so changes that dont reflect by assignment would reflect this way
+
 ,
 ## v17.2.2000 [2/23/24]
  * updated package to reflect the version  ^17.2.2 of @angular/core package,
@@ -338,7 +1356,6 @@ here are the default values that get passed to the scss
  * updated package to reflect the version  ^18.0.0 of @angular/core package,
 ## v18.0.4 [5/25/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
-,
 ## v18.0.1000 [5/29/24]
  * updated package to reflect the version  ^18.0.1 of @angular/core package,
 ## v18.0.2000 [6/6/24]
@@ -358,1560 +1375,38 @@ here are the default values that get passed to the scss
 ## v18.1.3 [7/13/24]
  * updated package to reflect the version  ^18.1.0 of @angular/core package,
 ## v18.1.4 [7/13/24]
- * updated package to reflect the version  ^18.1.0 of @angular/core package,
+ * updated package to reflect the version  ^18.1.0 of @angular/core package
+## v18.1.5 [7/13/24]
+ * [FIX] - fixed a bug with the default type not showing
+,
 ## v18.1.6 [7/14/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ## v18.1.1000 [7/18/24]
  * updated package to reflect the version  ^18.1.1 of @angular/core package,
 ## v18.1.2000 [7/24/24]
- * updated package to reflect the version  ^18.1.2 of @angular/core package,
+ * updated package to reflect the version  ^18.1.2 of @angular/core package
+
+## v18.1.2300
+[7/26/2024 4:05:00 PM EST]
+
+[UPDATE] Updated wml-button-one.component.html, added conditional links for props.link and props.routerLink
+[UPDATE] Updated wml-button-one.component.scss, added styles for links and removed unnecessary comments
+[BREAKING CHANGE] Added encapsulation: ViewEncapsulation.None in wml-button-one.component.ts
+[UPDATE] Added RouterModule to imports in wml-button-zero.module.ts
+,
 ## v18.1.2300 [7/27/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ## v18.1.2301 [7/30/24]
  * updated package to conform with @windmillcode/angular-wml-components-base
-
-# FileName: \_color_pallete.scss
-
-@use "sass:string";
-
-@function to-number($value) {
-    @if type-of($value) == 'number' {
-      @return $value;
-    } @else if type-of($value) != 'string' {
-      $_: log('Value for `to-number` should be a number or a string.');
-    }
-
-    $result: 0;
-    $digits: 0;
-    $minus: str-slice($value, 1, 1) == '-';
-    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-
-    @for $i from if($minus, 2, 1) through str-length($value) {
-      $character: str-slice($value, $i, $i);
-
-      @if not (index(map-keys($numbers), $character) or $character == '.') {
-        @return to-length(if($minus, -$result, $result), str-slice($value, $i))
-      }
-
-      @if $character == '.' {
-        $digits: 1;
-      } @else if $digits == 0 {
-        $result: $result * 10 + map-get($numbers, $character);
-      } @else {
-        $digits: $digits * 10;
-        $result: $result + map-get($numbers, $character) / $digits;
-      }
-    }
-
-    @return if($minus, -$result, $result);;
-  }
-
-@function convert-to-rgb($color) {
-  $channels: string.split($color, ",");
-  @return rgb(to-number(nth($channels, 1)),to-number(nth($channels, 2)),to-number(nth($channels, 3)));
-}
-
-
-$wml-accordion-white: "255,255,255";
-$wml-accordion-black: "0,0,0";
-$wml-accordion-primary: "144,238,144";
-$wml-accordion-secondary:"112,112,112";
-
-$wml-accordion-primary-gradient:   radial-gradient(farthest-corner at 100% 0px,convert-to-rgb($wml-accordion-primary) 0%,convert-to-rgb($wml-accordion-secondary) 150%);
-$wml-accordion-secondary-gradient: radial-gradient(farthest-corner at 100% 0px,grey 0%,convert-to-rgb($wml-accordion-black) 150%);
-
-
-:root{
-  --wml-accordion-white:#{$wml-accordion-white};
-  --wml-accordion-black:#{$wml-accordion-black};
-  --wml-accordion-primary:#{$wml-accordion-primary};
-  --wml-accordion-secondary:#{$wml-accordion-secondary};
-
-  --wml-accordion-primary-gradient: #{$wml-accordion-primary-gradient};
-  --wml-accordion-secondary-gradient: #{$wml-accordion-secondary-gradient};
-
-}
-
-# FileName: \_common.scss
-
-$wml-accordion-border-radius0:calc(8/16 * 1rem);
-$wml-accordion-border-radius1:calc(10/16 * 1rem);
-$wml-accordion-border-radius2:calc(20/16 * 1rem);
-
-# FileName: \_media_queries.scss
-
-/***********************************************
- Media query variables
-***********************************************/
-
-/* media queries */
-$mobileFont:                  'only screen and (max-width: 600px)';
-$mobile:              		    'only screen and (max-width: 767px)';
-// $mobile:              		    'only screen and (max-width: 899px)';
-$smallMobile:				    'only screen and (max-width: 320px)';
-$mediumMobile:				    'only screen and (max-width: 374px)';
-$tablet:              		    'only screen and (min-width: 768px) and (max-width: 1199px)';
-$tabletPortrait:      		    'only screen and (min-width: 768px) and (max-width: 991px)';
-$tabletPortraitDown:  		    'only screen and (max-width: 991px)';
-$tabletLandscape:     		    'only screen and (min-width: 992px) and (max-width: 1199px)';
-$smallDesktop:             	    'only screen and (min-width: 992px)';
-$tabletLandscapeDown: 		    'only screen and (max-width: 1199px)';
-$desktop:             		    'only screen and (min-width: 1200px)';
-$notMobile:           		    'only screen and (min-width: 768px)';
-$laptop:              		    'only screen and (min-width: 1200px) and (max-width: 1440px)';
-$laptopDown:          		    'only screen and (max-width: 1440px)';
-$laptopTablet:        		    'only screen and (min-width: 768px) and (max-width: 1440px)';
-$laptopTabletLandscape:         'only screen and (min-width: 992px) and (max-width: 1440px)';
-$largeDesktop:        		    'only screen and (min-width: 1441px)';
-$largeDesktopDown:        	    'only screen and (max-width: 1599px)';
-$xlDesktop:           		    'only screen and (min-width: 1600px)';
-$xlDesktopDown:           	    'only screen and (max-width: 1919px)';
-$xxlDesktop:           		    'only screen and (min-width: 1920px)';
-
-$xxxlDesktop:           	    'only screen and (min-width: 2000px)';
-$dekstopDownForCampaigns:	    'only screen and (max-width: 1250px)';
-
-/* media queries for header */
-$tabletForHeader:              	'only screen and (min-width: 768px) and (max-width: 1230px)';
-$tabletLandscapeForHeader:     	'only screen and (min-width: 992px) and (max-width: 1230px)';
-$tabletLandscapeDownForHeader: 	'only screen and (max-width: 1230px)';
-$desktopForHeader:             	'only screen and (min-width: 1231px)';
-$laptopForHeader:              	'only screen and (min-width: 1231px) and (max-width: 1440px)';
-
-
-:root {
-  --wml-accordion-mobile-font: #{$mobileFont};
-  --wml-accordion-mobile: #{$mobile};
-  --wml-accordion-small-mobile: #{$smallMobile};
-  --wml-accordion-medium-mobile: #{$mediumMobile};
-  --wml-accordion-tablet: #{$tablet};
-  --wml-accordion-tablet-portrait: #{$tabletPortrait};
-  --wml-accordion-tablet-portrait-down: #{$tabletPortraitDown};
-  --wml-accordion-tablet-landscape: #{$tabletLandscape};
-  --wml-accordion-small-desktop: #{$smallDesktop};
-  --wml-accordion-tablet-landscape-down: #{$tabletLandscapeDown};
-  --wml-accordion-desktop: #{$desktop};
-  --wml-accordion-not-mobile: #{$notMobile};
-  --wml-accordion-laptop: #{$laptop};
-  --wml-accordion-laptop-down: #{$laptopDown};
-  --wml-accordion-laptop-tablet: #{$laptopTablet};
-  --wml-accordion-laptop-tablet-landscape: #{$laptopTabletLandscape};
-  --wml-accordion-large-desktop: #{$largeDesktop};
-  --wml-accordion-large-desktop-down: #{$largeDesktopDown};
-  --wml-accordion-xl-desktop: #{$xlDesktop};
-  --wml-accordion-xl-desktop-down: #{$xlDesktopDown};
-  --wml-accordion-xxl-desktop: #{$xxlDesktop};
-  --wml-accordion-xxxl-desktop: #{$xxxlDesktop};
-  --wml-accordion-dekstop-down-for-campaigns: #{$dekstopDownForCampaigns};
-  --wml-accordion-tablet-for-header: #{$tabletForHeader};
-  --wml-accordion-tablet-landscape-for-header: #{$tabletLandscapeForHeader};
-  --wml-accordion-tablet-landscape-down-for-header: #{$tabletLandscapeDownForHeader};
-  --wml-accordion-desktop-for-header: #{$desktopForHeader};
-  --wml-accordion-laptop-for-header: #{$laptopForHeader};
-}
-
-# FileName: \_spacing.scss
-
-$wml-accordion-spacing0: calc(1/16* 1rem);
-$wml-accordion-spacing1: calc(2/16* 1rem);
-$wml-accordion-spacing2: calc(4/16* 1rem);
-$wml-accordion-spacing3: calc(8/16* 1rem);
-$wml-accordion-spacing4: calc(12/16* 1rem);
-$wml-accordion-spacing5: calc(16/16* 1rem);
-$wml-accordion-spacing6: calc(24/16* 1rem);
-$wml-accordion-spacing7: calc(32/16* 1rem);
-$wml-accordion-spacing8: calc(48/16* 1rem);
-$wml-accordion-spacing9: calc(64/16* 1rem);
-$wml-accordion-spacing10: calc(72/16* 1rem);
-$wml-accordion-spacing11: calc(96/16* 1rem);
-$wml-accordion-spacing12: calc(128/16* 1rem);
-$wml-accordion-spacing13: calc(192/16* 1rem);
-$wml-accordion-spacing14: calc(256/16* 1rem);
-$wml-accordion-spacing15: calc(384/16* 1rem);
-$wml-accordion-spacing16: calc(512/16* 1rem);
-
-
-
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.global.scss
-
-#root wml-accordion-zero{
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.html
-
-<div [class]="classPrefix('MainPod')">
-  <section [class]="classPrefix('Pod'+i) + ' ' +classPrefix('MainItem0')" *ngFor="let section of props.items;let i = index;">
-    <wml-accordion-zero-item [class]="classPrefix('MainItem1') + ' ' +item.class"
-    *ngFor="let item of section" [props]="item"></wml-accordion-zero-item>
-  </section>
-</div>
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.phone.scss
-
-#root wml-accordion-zero{
-  @media #{$mobile}{
-
-  }
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.scss
-
-
-@import '../../../../styles';
-
-wml-accordion-zero {
-  &.WMLAccordionZeroView{
-    display: block;
-    .WMLAccordionZero{
-      &Main{
-
-        &Item {
-          &0 {
-            display: flex;
-            flex-flow: row wrap;
-          }
-          &1{
-            flex:  1 0 auto;
-            position: relative;
-            max-width: 100%;
-          }
-        }
-
-      }
-      &Pod{
-
-
-      }
-    }
-  }
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.spec.ts
-
-// testing
-import { ComponentFixture } from '@angular/core/testing';
-
-// rxjs
-import { Subject } from 'rxjs';
-
-import { WMLAccordionZeroComponent, WMLAccordionZeroProps } from './wml-accordion-zero.component';
-import { resetImports } from '../test-utils/mock-imports';
-import { resetProviders } from '../test-utils/mock-providers';
-import { wmlTestUtils } from '../test-utils/test-utils';
-import { WMLAccordionZeroItemProps } from '../wml-accordion-zero-item/wml-accordion-zero-item.component';
-
-
-describe('WMLAccordionZeroComponent', () => {
-  let cpnt: WMLAccordionZeroComponent;
-  let fixture: ComponentFixture<WMLAccordionZeroComponent>;
-
-  beforeEach(async () => {
-
-
-    resetImports()
-    resetProviders()
-    await wmlTestUtils.configureTestingModuleForComponents(WMLAccordionZeroComponent);
-
-
-    ({fixture, cpnt} =  wmlTestUtils.grabComponentInstance(WMLAccordionZeroComponent));
-    fixture.detectChanges()
-  })
-
-  describe("init", () => {
-
-    it("should create", () => {
-      expect(cpnt).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(cpnt.myClass).toEqual('WMLAccordionZeroView ')
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
-    })
-  })
-
-  describe("ngOnInit",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-      // arrange
-      let id
-      cpnt.props.id = id = "id"
-      // act
-      cpnt.ngOnInit()
-      // assert
-      expect(cpnt.myId).toEqual(id)
-
-    })
-  })
-
-  describe("ngOnDestroy",()=>{
-
-    beforeEach(()=>{
-      spyOn(cpnt.ngUnsub,'next')
-      spyOn(cpnt.ngUnsub,'complete')
-    })
-
-    it(` when called |
-     as appropriate |
-     does the required action `,()=>{
-        // act
-        cpnt.ngOnDestroy();
-
-        // assert
-        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
-        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
-    })
-  })
-});
-
-
-describe("WMLAccordionZeroProps",()=>{
-
-  let helper:WMLAccordionZeroProps
-  beforeEach(()=>{
-    helper = new WMLAccordionZeroProps()
-  })
-  describe("init",()=>{
-    it("should create", () => {
-      expect(helper).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(helper.id).toEqual('')
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      helper.items
-      .forEach((group)=>{
-        group.forEach((item)=>{
-          expect(item).toBeInstanceOf(WMLAccordionZeroItemProps)
-        })
-      })
-    })
-  })
-})
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero\wml-accordion-zero.component.ts
-
-// angular
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input  , ViewEncapsulation, ViewContainerRef, ViewChild   } from '@angular/core';
-
-
-
-// rxjs
-import { Subject } from 'rxjs';
-import { takeUntil,tap } from 'rxjs/operators';
-
-// wml-components
-import { WMLCustomComponent, WMLUIProperty, addCustomComponent, generateClassPrefix } from '@windmillcode/angular-wml-components-base';
-import { WMLAccordionZeroSampleComponent, WMLAccordionZeroSampleProps } from '../wml-accordion-zero-sample/wml-accordion-zero-sample.component';
-import { WMLAccordionZeroItemProps } from '../wml-accordion-zero-item/wml-accordion-zero-item.component';
-
-
-// misc
-
-
-
-@Component({
-
-  selector: 'wml-accordion-zero',
-  templateUrl: './wml-accordion-zero.component.html',
-  styleUrls: ['./wml-accordion-zero.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush,
-  encapsulation:ViewEncapsulation.None
-})
-export class WMLAccordionZeroComponent  {
-
-  constructor(
-    public cdref:ChangeDetectorRef,
-
-  ) { }
-
-  classPrefix = generateClassPrefix('WMLAccordionZero')
-  @Input('props') props: WMLAccordionZeroProps = new WMLAccordionZeroProps()
-  @HostBinding('class') myClass: string = this.classPrefix(`View`);
-  @HostBinding('id') myId!:string;
-
-  ngUnsub= new Subject<void>()
-
-  ngOnInit(): void {
-    this.myId = this.props.id
-  }
-
-  ngOnDestroy(){
-    this.ngUnsub.next();
-    this.ngUnsub.complete()
-  }
-
-}
-
-
-
-export class WMLAccordionZeroProps {
-  constructor(props:Partial<WMLAccordionZeroProps & {propItems?:WMLAccordionZeroItemProps[]}>={}){
-    Object.assign(
-      this,
-      {
-        ...props
-      }
-    )
-    if(props.propItems){
-      this.items = props.propItems.map((item)=>{
-        return [item]
-      })
-    }
-  }
-
-  id = ""
-  items : WMLAccordionZeroItemProps[][] =[
-    Array(2)
-    .fill(null)
-    .map((nullVal,index0)=>{
-      return new WMLAccordionZeroItemProps()
-    }),
-    Array(3)
-    .fill(null)
-    .map((nullVal,index0)=>{
-      return new WMLAccordionZeroItemProps()
-    }),
-    Array(2)
-    .fill(null)
-    .map((nullVal,index0)=>{
-      return new WMLAccordionZeroItemProps()
-    }),
-  ]
-
-}
-
-
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.global.scss
-
-#root wml-accordion-zero-item{
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.html
-
-<div [class]="classPrefix('MainPod')">
-
-  <div [class]="classPrefix('Pod0')">
-    <div (click)="toggleAccordion()">
-      <i *ngIf="props.isClosed" [class]="classPrefix('Pod0Icon0') + ' fa-solid fa-chervron-down'"></i>
-      <i *ngIf="!props.isClosed" [class]="classPrefix('Pod0Icon0') + ' fa-solid fa-chervron-up'"></i>
-    </div>
-    <ng-template  #customAccordionTitle ></ng-template>
-
-
-  </div>
-
-  <div  [class]="classPrefix('Pod1') + ' '+ contentPod.class"
-  [ngStyle]="{'display': contentPod.isPresent ? 'block' : 'none'}"
-   (animationend)="triggerCloseAnimation()">
-    <ng-template  #customAccordionBody ></ng-template>
-  </div>
-</div>
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.phone.scss
-
-#root wml-accordion-zero-item{
-  @media #{$mobile}{
-
-  }
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.scss
-
-
-@import '../../../../styles';
-
-
-wml-accordion-zero-item {
-
-    --wml-accordion-zero-startHeight: calc(0/10.6 * 1rem);
-    --wml-accordion-zero-endHeight0 : calc(20000/10.6 * 1rem);
-    --wml-accordion-zero-endHeight1 : calc(2000/10.6 * 1rem);
-    --wml-accordion-zero-animationDuration0: 10s;
-    --wml-accordion-zero-animationDuration1: 1.25s;
-
-    @keyframes open-accordion {
-      0%{
-        max-height:var(--wml-accordion-zero-startHeight);
-      }
-      100%{
-        max-height:var(--wml-accordion-zero-endHeight0);
-      }
-    }
-
-    @keyframes close-accordion {
-      0%{
-        max-height:var(--wml-accordion-zero-endHeight1);
-      }
-      100%{
-        max-height:var(--wml-accordion-zero-startHeight);
-      }
-    }
-
-  &.WMLAccordionZeroItemView{
-    display: block;
-    .WMLAccordionZeroItem{
-      &Main{
-
-        &Pod{
-          max-width: 100%;
-          overflow: hidden;
-          // display: inline-block;
-        }
-
-      }
-      &Pod{
-
-        &0{
-          max-width: 100%;
-          overflow: hidden;
-          background: var(--wml-accordion-secondary-gradient);
-          padding: $wml-accordion-spacing3;
-          display: flex;
-          align-items: center;
-
-          &Icon {
-            &0 {
-              color: rgba(var(--wml-accordion-white));
-              font-size: calc(20/10.6 * 1rem);
-              cursor: pointer;
-            }
-          }
-
-          &Title {
-            &0 {
-              margin: 0 0 0 $wml-accordion-spacing5;
-            }
-          }
-
-
-        }
-        &1{
-
-          max-width: 100%;
-          max-height: var(--wml-accordion-zero-endHeight0);
-          animation: open-accordion var(--wml-accordion-zero-animationDuration0);
-          background-color: rgba(var(--wml-accordion-white),.7);
-          overflow: hidden;
-          &Closing{
-            max-height: var(--wml-accordion-zero-startHeight);
-            animation: close-accordion var(--wml-accordion-zero-animationDuration1);
-          }
-        }
-      }
-    }
-  }
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.spec.ts
-
-// testing
-import { ComponentFixture } from '@angular/core/testing';
-
-// rxjs
-import { Subject } from 'rxjs';
-
-import { WMLAccordionZeroItemComponent, WMLAccordionZeroItemProps } from './wml-accordion-zero-item.component';
-import { resetImports } from '../test-utils/mock-imports';
-import { resetProviders } from '../test-utils/mock-providers';
-import { wmlTestUtils } from '../test-utils/test-utils';
-import { WMLCustomComponent, WMLUIProperty } from '@windmillcode/angular-wml-components-base';
-
-
-
-let wmlComponetsBase = require("@windmillcode/angular-wml-components-base")
-
-
-describe('WMLAccordionZeroItemComponent', () => {
-  let cpnt: WMLAccordionZeroItemComponent;
-  let fixture: ComponentFixture<WMLAccordionZeroItemComponent>;
-
-  beforeEach(async () => {
-    resetImports()
-    resetProviders()
-
-    await wmlTestUtils.configureTestingModuleForComponents(WMLAccordionZeroItemComponent);
-
-
-    ({fixture, cpnt} =  wmlTestUtils.grabComponentInstance(WMLAccordionZeroItemComponent));
-    fixture.detectChanges()
-    spyOn(cpnt,"updateCssValues").and.callThrough()
-    spyOn(cpnt,"toggleAccordion").and.callThrough()
-
-    wmlTestUtils
-    .spyOnForES6Imports(wmlComponetsBase,"addCustomComponent")
-    .and.callThrough()
-
-    spyOn(cpnt.el.nativeElement.style,"setProperty")
-    spyOn(cpnt.cdref,"detectChanges")
-    spyOn(cpnt.contentPod,"updateClassString")
-
-
-
-  })
-
-  describe("init", () => {
-
-    it("should create", () => {
-      expect(cpnt).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(cpnt.myClass).toEqual('WMLAccordionZeroItemView ')
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
-      expect(cpnt.contentPod).toBeInstanceOf(WMLUIProperty)
-    })
-  })
-
-  describe("ngOnInit",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-      // arrange
-      let id
-      cpnt.props.id = id = "id"
-      // act
-      cpnt.ngOnInit()
-      // assert
-      expect(cpnt.myId).toEqual(id)
-      expect(wmlComponetsBase.addCustomComponent ).toHaveBeenCalledWith(
-        cpnt.customAccordionBody,
-        cpnt.props.accordionBody.cpnt,
-        cpnt.props.accordionBody.props
-      )
-      expect(cpnt.updateCssValues).toHaveBeenCalled()
-
-
-    })
-
-    it(` when called |
-    and (!this.props.isClosed) === true |
-    does the required action `,()=>{
-      // arrange
-      let id
-      cpnt.props.id = id = "id"
-      cpnt.props.isClosed = false
-      // act
-      cpnt.ngOnInit()
-      // assert
-      expect(cpnt.myId).toEqual(id)
-      expect(wmlComponetsBase.addCustomComponent ).toHaveBeenCalledWith(
-        cpnt.customAccordionBody,
-        cpnt.props.accordionBody.cpnt,
-        cpnt.props.accordionBody.props
-      )
-      expect(cpnt.updateCssValues).toHaveBeenCalled()
-      expect(cpnt.toggleAccordion).toHaveBeenCalledWith(
-        cpnt.props.isClosed
-      )
-
-
-    })
-  })
-
-  describe("updateCssValues",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-
-      // act
-      cpnt.updateCssValues();
-      // arrange
-      [
-        "startHeight",
-        "endHeight0",
-        "endHeight1",
-        "animationDuration0",
-        "animationDuration1",
-      ]
-      .forEach((val)=>{
-
-      // assert
-        expect(cpnt.el.nativeElement.style.setProperty).toHaveBeenCalledWith(
-          '--wml-accordion-zero-'+val,
-          cpnt.props[val]
-        )
-      })
-
-      // assert
-      expect(cpnt.cdref.detectChanges).toHaveBeenCalled()
-
-    })
-
-
-  })
-
-  describe("toggleAccordion",()=>{
-    describe("val",()=>{
-      it(` when called |
-      under normal conditions |
-      does the required action `,()=>{
-        // arrange
-        let val = true
-        // act
-        cpnt.toggleAccordion(val)
-        // assert
-        expect(cpnt.contentPod.updateClassString).toHaveBeenCalledWith(
-          cpnt.classPrefix('Pod1Closing')
-        )
-        expect(cpnt.cdref.detectChanges).toHaveBeenCalled()
-        expect(cpnt.props.isClosed).toEqual(val)
-
-      })
-
-      it(` when called |
-      under (val === false)  |
-      does the required action `,()=>{
-        // arrange
-        let val = false
-        // act
-        cpnt.toggleAccordion(val)
-        // assert
-        expect(cpnt.contentPod.updateClassString).toHaveBeenCalledWith(
-          cpnt.classPrefix('Pod1Closing'),"remove"
-        )
-        expect(cpnt.contentPod.isPresent).toEqual(true)
-        expect(cpnt.cdref.detectChanges).toHaveBeenCalled()
-
-
-      })
-    })
-
-  })
-
-  describe("triggerCloseAnimation",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-      // arrange
-      cpnt.props.isClosed = true
-      // act
-      cpnt.triggerCloseAnimation()
-      // assert
-      expect(cpnt.contentPod.isPresent).toEqual(false)
-      expect(cpnt.cdref.detectChanges).toHaveBeenCalled()
-
-    })
-  })
-
-  describe("ngOnDestroy",()=>{
-
-    beforeEach(()=>{
-      spyOn(cpnt.ngUnsub,'next')
-      spyOn(cpnt.ngUnsub,'complete')
-    })
-
-    it(` when called |
-     as appropriate |
-     does the required action `,()=>{
-        // act
-        cpnt.ngOnDestroy();
-
-        // assert
-        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
-        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
-    })
-  })
-});
-
-
-describe("WMLAccordionZeroItemProps",()=>{
-  let cpnt:WMLAccordionZeroItemProps
-  beforeEach(()=>{
-    cpnt = new WMLAccordionZeroItemProps()
-  })
-  describe("init", () => {
-
-    it("should create", () => {
-      expect(cpnt).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(cpnt.title).toEqual('My Accordion Item')
-      expect(cpnt.isClosed).toEqual(true)
-      expect(cpnt.startHeight).toEqual("calc(0/10.6 * 1rem)")
-      expect(cpnt.endHeight0).toEqual("calc(20000/10.6 * 1rem)")
-      expect(cpnt.endHeight1).toEqual("calc(2000/10.6 * 1rem)")
-      expect(cpnt.animationDuration0).toEqual("10s")
-      expect(cpnt.animationDuration1).toEqual("1.25s")
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      expect(cpnt.accordionBody).toBeInstanceOf(WMLCustomComponent)
-    })
-  })
-})
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-item\wml-accordion-zero-item.component.ts
-
-// angular
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input  , ViewEncapsulation, ViewChild, ViewContainerRef, ElementRef   } from '@angular/core';
-
-// rxjs
-import { Subject } from 'rxjs';
-import { takeUntil,tap } from 'rxjs/operators';
-
-// wml-components
-import { WMLCustomComponent, WMLUIProperty, addCustomComponent, generateClassPrefix } from '@windmillcode/angular-wml-components-base';
-import { WMLAccordionZeroSampleComponent, WMLAccordionZeroSampleProps } from '../wml-accordion-zero-sample/wml-accordion-zero-sample.component';
-import { WMLAccordionZeroTitleComponent, WMLAccordionZeroTitleProps } from '../wml-accordion-zero-title/wml-accordion-zero-title.component';
-// misc
-
-type toggleAccordionEventType = Partial<{
-  val:boolean,
-  emit:boolean
-}>
-
-@Component({
-
-  selector: 'wml-accordion-zero-item',
-  templateUrl: './wml-accordion-zero-item.component.html',
-  styleUrls: ['./wml-accordion-zero-item.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush,
-  encapsulation:ViewEncapsulation.None
-
-})
-export class WMLAccordionZeroItemComponent  {
-
-  constructor(
-    public cdref:ChangeDetectorRef,
-    public el:ElementRef
-  ) { }
-
-  classPrefix = generateClassPrefix('WMLAccordionZeroItem')
-  @Input('props') props: WMLAccordionZeroItemProps = new WMLAccordionZeroItemProps()
-  @HostBinding('class') myClass: string = this.classPrefix(`View`);
-  @HostBinding('id') myId!:string;
-  @ViewChild("customAccordionBody", {read:ViewContainerRef,static:true}) customAccordionBody!:ViewContainerRef;
-  @ViewChild("customAccordionTitle", {read:ViewContainerRef,static:true}) customAccordionTitle!:ViewContainerRef;
-  ngUnsub= new Subject<void>()
-  contentPod = new WMLUIProperty({isPresent:false})
-
-
-
-  updateCssValues = ()=>{
-    this.el.nativeElement.style.setProperty(
-      '--wml-accordion-zero-startHeight',
-      this.props.startHeight
-    )
-    this.el.nativeElement.style.setProperty(
-      '--wml-accordion-zero-endHeight0',
-      this.props.endHeight0
-    )
-    this.el.nativeElement.style.setProperty(
-      '--wml-accordion-zero-endHeight1',
-      this.props.endHeight1
-    )
-    this.el.nativeElement.style.setProperty(
-      '--wml-accordion-zero-animationDuration0',
-      this.props.animationDuration0
-    )
-    this.el.nativeElement.style.setProperty(
-      '--wml-accordion-zero-animationDuration1',
-      this.props.animationDuration1
-    )
-    this.cdref.detectChanges()
-  }
-
-  toggleAccordion = (val:toggleAccordionEventType ={emit:true})=>{
-    this.props.isClosed = val.val ?? !this.props.isClosed
-
-    if(this.props.isClosed){
-      this.contentPod.updateClassString(this.classPrefix('Pod1Closing'))
-    }
-    else {
-      this.contentPod.isPresent = true
-      this.contentPod.updateClassString(this.classPrefix('Pod1Closing'),"remove")
-    }
-    this.cdref.detectChanges()
-    if(val.emit !== false){
-      this.props.toggleAccordionEvent.next(this.props.isClosed)
-    }
-  }
-
-  triggerCloseAnimation =()=>{
-    if(this.props.isClosed){
-      this.contentPod.isPresent = false;
-      this.cdref.detectChanges();
-    }
-  }
-
-  listenForToggle =()=>{
-    return this.props.toggleAccordionSubj
-    .pipe(
-      takeUntil(this.ngUnsub),
-      tap((val)=>this.toggleAccordion({
-        ...val,
-        val:!val.val
-      }))
-    )
-
-  }
-
-  listenForUpdateAccordionBody =()=>{
-    return this.props.updateAccordionBodySubj
-      .pipe(
-        takeUntil(this.ngUnsub),
-        tap((custom)=>{
-          this.customAccordionBody.clear()
-          this.props.accordionBody = custom
-          addCustomComponent(
-            this.customAccordionBody,
-            custom.cpnt,
-            custom.props
-          )
-          this.cdref.detectChanges()
-        })
-      )
-
-  }
-
-
-  updateAccordionBody() {
-    addCustomComponent(
-      this.customAccordionBody,
-      this.props.accordionBody.cpnt,
-      this.props.accordionBody.props
-    );
-  }
-
-  ngOnInit(): void {
-    this.myId = this.props.id
-    this.updateAccordionBody();
-    addCustomComponent(
-      this.customAccordionTitle,
-      this.props.accordionTitle.cpnt,
-      this.props.accordionTitle.props
-    )
-    this.updateCssValues()
-    this.listenForToggle().subscribe()
-    this.listenForUpdateAccordionBody().subscribe()
-    if(!this.props.isClosed){
-      this.toggleAccordion({
-        val:this.props.isClosed,
-      })
-    }
-
-  }
-
-
-  ngOnDestroy(){
-    this.ngUnsub.next();
-    this.ngUnsub.complete()
-  }
-
-}
-
-
-
-export class WMLAccordionZeroItemProps extends WMLUIProperty {
-  constructor(props:Partial<WMLAccordionZeroItemProps>={}){
-    super(props)
-    let origProps = Object.entries(props)
-      .filter(([key,val]) => {
-        return !key.startsWith('prop');
-      });
-    Object.assign(this, { ...Object.fromEntries(origProps) });
-    if(props.propTitle){
-      this.accordionTitle.props.title = props.propTitle
-    }
-  }
-
-
-
-  isClosed = true
-  toggleAccordionEvent = new Subject<boolean>()
-  toggleAccordionSubj = new Subject<{
-    val:boolean,
-    emit:boolean
-  }>()
-  propTitle = "My Accordion Title"
-  accordionTitle = new WMLCustomComponent({
-    cpnt:WMLAccordionZeroTitleComponent,
-    props:new WMLAccordionZeroTitleProps()
-  })
-  /**
-   * @deprecated use propTitle instead
-  */
-  get title(){
-    return this.accordionTitle.props.title
-  }
-  /**
-   * @deprecated use propTitle instead
-  */
-  set title(val){
-    if(this.accordionTitle){
-      this.accordionTitle.props.title = val
-    }
-  }
-  accordionBody = new WMLCustomComponent({
-    cpnt:WMLAccordionZeroSampleComponent,
-    props:new WMLAccordionZeroSampleProps()
-  })
-  updateAccordionBodySubj = new Subject<WMLCustomComponent>()
-  customTitle
-  startHeight = "calc(0/10.6 * 1rem)"
-  endHeight0 = "calc(20000/10.6 * 1rem)"
-  endHeight1 = "calc(2000/10.6 * 1rem)"
-  animationDuration0 = "10s"
-  animationDuration1 = "1.25s"
-
-}
-
-
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.global.scss
-
-#root wml-accordion-zero-sample{
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.html
-
-<div [class]="classPrefix('MainPod')">
-  <p>Replace WMLAccordionZeroItemProps.accordionBody with WMLCustomComponent class instantiated with the component and props as necessary</p>
-</div>
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.phone.scss
-
-#root wml-accordion-zero-sample{
-  @media #{$mobile}{
-
-  }
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.scss
-
-
-
-
-
-  @import '../../../../styles';
-
-
-
-
-
-
-  wml-accordion-zero-sample {
-
-
-
-  &.WMLAccordionZeroSampleView{
-    display: block;
-
-    .WMLAccordionZeroSample{
-      &Main{
-        &Pod{
-
-          background: var(--wml-accordion-primary-gradient);
-          height: calc(300/10.6 * 1rem);
-
-          p{
-            font-size: calc(32/10.6 * 1rem);
-            white-space:pre-wrap;
-          }
-        }
-      }
-      &Pod{
-
-        &0{}
-      }
-    }
-  }
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.spec.ts
-
-// testing
-import { ComponentFixture } from '@angular/core/testing';
-
-// rxjs
-import { Subject } from 'rxjs';
-
-import { WMLAccordionZeroSampleComponent } from './wml-accordion-zero-sample.component';
-import { wmlTestUtils } from '../test-utils/test-utils';
-import { resetImports } from '../test-utils/mock-imports';
-import { resetProviders } from '../test-utils/mock-providers';
-
-
-
-
-describe('WMLAccordionZeroSampleComponent', () => {
-  let cpnt: WMLAccordionZeroSampleComponent;
-  let fixture: ComponentFixture<WMLAccordionZeroSampleComponent>;
-
-  beforeEach(async () => {
-    resetImports()
-    resetProviders()
-    await wmlTestUtils.configureTestingModuleForComponents(
-      WMLAccordionZeroSampleComponent
-    );
-
-
-    ({fixture, cpnt} =  wmlTestUtils
-      .grabComponentInstance(WMLAccordionZeroSampleComponent));
-    fixture.detectChanges()
-  })
-
-  describe("init", () => {
-
-    it("should create", () => {
-      expect(cpnt).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(cpnt.myClass).toEqual('WMLAccordionZeroSampleView ')
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
-    })
-  })
-
-  describe("ngOnInit",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-      // arrange
-      let id
-      cpnt.props.id = id = "id"
-      // act
-      cpnt.ngOnInit()
-      // assert
-      expect(cpnt.myId).toEqual(id)
-
-    })
-  })
-
-  describe("ngOnDestroy",()=>{
-
-    beforeEach(()=>{
-      spyOn(cpnt.ngUnsub,'next')
-      spyOn(cpnt.ngUnsub,'complete')
-    })
-
-    it(` when called |
-     as appropriate |
-     does the required action `,()=>{
-        // act
-        cpnt.ngOnDestroy();
-
-        // assert
-        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
-        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
-    })
-  })
-});
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-sample\wml-accordion-zero-sample.component.ts
-
-// angular
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input  , ViewEncapsulation   } from '@angular/core';
-
-
-
-// rxjs
-import { Subject } from 'rxjs';
-import { takeUntil,tap } from 'rxjs/operators';
-
-// wml-components
-import { generateClassPrefix } from '@windmillcode/angular-wml-components-base';
-
-
-// misc
-
-
-
-@Component({
-
-  selector: 'wml-accordion-zero-sample',
-  templateUrl: './wml-accordion-zero-sample.component.html',
-  styleUrls: ['./wml-accordion-zero-sample.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush,
-
-  encapsulation:ViewEncapsulation.None
-
-
-
-
-})
-export class WMLAccordionZeroSampleComponent  {
-
-  constructor(
-    public cdref:ChangeDetectorRef,
-
-  ) { }
-
-  classPrefix = generateClassPrefix('WMLAccordionZeroSample')
-
-
-  @Input('props') props: WMLAccordionZeroSampleProps = new WMLAccordionZeroSampleProps()
-
-
-  @HostBinding('class') myClass: string = this.classPrefix(`View`);
-
-
-  @HostBinding('id') myId!:string
-
-  ngUnsub= new Subject<void>()
-
-  ngOnInit(): void {
-
-    this.myId = this.props.id
-
-  }
-
-  ngOnDestroy(){
-    this.ngUnsub.next();
-    this.ngUnsub.complete()
-  }
-
-}
-
-
-
-export class WMLAccordionZeroSampleProps {
-  constructor(props:Partial<WMLAccordionZeroSampleProps>={}){
-    Object.assign(
-      this,
-      {
-        ...props
-      }
-    )
-  }
-
-  id = ""
-
-}
-
-
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.global.scss
-
-#root wml-accordion-zero-title{
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.html
-
-<div [class]="classPrefix('MainPod')">
-  <h2  [class]="classPrefix('Pod0Title0')">{{props.title | translate}}</h2>
-</div>
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.phone.scss
-
-#root wml-accordion-zero-title{
-  @media #{$mobile}{
-
-  }
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.scss
-
-
-
-
-
-  @import '../../../../styles';
-
-
-
-
-
-
-  wml-accordion-zero-title {
-
-
-
-  &.WMLAccordionZeroTitleView{
-    display: block;
-    height:100%;
-    .WMLAccordionZeroTitle{
-      &Main{
-        &Pod{
-
-
-          height:100%;
-        }
-      }
-      &Pod{
-
-        &0{
-          &Title {
-            &0 {
-              margin: 0 0 0 $wml-accordion-spacing5;
-            }
-          }
-        }
-      }
-    }
-  }
-
-}
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.spec.ts
-
-// testing
-import { ComponentFixture } from '@angular/core/testing';
-
-
-
-
-import { resetImports } from '../test-utils/mock-imports';
-import { resetProviders } from '../test-utils/mock-providers';
-import { wmlTestUtils } from '../test-utils/test-utils';
-import { resetDeclarations } from '../test-utils/mock-declarations';
-
-
-// rxjs
-import { Subject } from 'rxjs';
-
-import { WMLAccordionZeroTitleComponent } from './wml-accordion-zero-title.component';
-
-
-describe('WMLAccordionZeroTitleComponent', () => {
-  let cpnt: WMLAccordionZeroTitleComponent;
-  let fixture: ComponentFixture<WMLAccordionZeroTitleComponent>;
-
-  beforeEach(async () => {
-    resetImports()
-    resetProviders()
-    resetDeclarations()
-
-
-
-    await wmlTestUtils.configureTestingModuleForComponents(WMLAccordionZeroTitleComponent);
-
-
-    ({fixture, cpnt} =  wmlTestUtils.grabComponentInstance(WMLAccordionZeroTitleComponent));
-    fixture.detectChanges()
-
-    spyOn(cpnt.cdref,"detectChanges")
-  })
-
-  describe("init", () => {
-
-    it("should create", () => {
-      expect(cpnt).toBeTruthy()
-    })
-
-    it("should have all values initalize properly", () => {
-      expect(cpnt.myClass).toEqual('WMLAccordionZeroTitleView ')
-    })
-
-    it("should have all properties be the correct class instance", () => {
-      expect(cpnt.ngUnsub).toBeInstanceOf(Subject<void>)
-    })
-  })
-
-
-  describe("ngOnInit",()=>{
-    it(` when called |
-    under normal conditions |
-    does the required action `,()=>{
-      // arrange
-      let id
-      cpnt.props.id = id = "id"
-      // act
-      cpnt.ngOnInit()
-      // assert
-      expect(cpnt.myId).toEqual(id)
-
-    })
-  })
-
-
-  describe("ngOnDestroy",()=>{
-
-    beforeEach(()=>{
-      spyOn(cpnt.ngUnsub,'next')
-      spyOn(cpnt.ngUnsub,'complete')
-    })
-
-    it(` when called |
-     as appropriate |
-     does the required action `,()=>{
-        // act
-        cpnt.ngOnDestroy();
-
-        // assert
-        expect(cpnt.ngUnsub.next).toHaveBeenCalled();
-        expect(cpnt.ngUnsub.complete).toHaveBeenCalled();
-    })
-  })
-});
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero-title\wml-accordion-zero-title.component.ts
-
-// angular
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit,  Input  , ViewEncapsulation   } from '@angular/core';
-
-
-
-// rxjs
-import { Subject } from 'rxjs';
-import { takeUntil,tap } from 'rxjs/operators';
-
-// wml-components
-import { generateClassPrefix, generateIdPrefix } from '@windmillcode/angular-wml-components-base';
-
-
-// misc
-
-
-
-@Component({
-
-  selector: 'wml-accordion-zero-title',
-  templateUrl: './wml-accordion-zero-title.component.html',
-  styleUrls: ['./wml-accordion-zero-title.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush,
-
-  encapsulation:ViewEncapsulation.None
-
-})
-export class WMLAccordionZeroTitleComponent  {
-
-  constructor(
-    public cdref:ChangeDetectorRef,
-
-  ) { }
-
-  classPrefix = generateClassPrefix('WMLAccordionZeroTitle')
-
-
-  @Input('props') props: WMLAccordionZeroTitleProps = new WMLAccordionZeroTitleProps()
-
-
-  @HostBinding('class') myClass: string = this.classPrefix(`View`);
-
-
-  @HostBinding('id') myId!:string
-
-  ngUnsub= new Subject<void>()
-
-  ngOnInit(): void {
-
-    this.myId = this.props.id
-
-  }
-
-  ngOnDestroy(){
-    this.ngUnsub.next();
-    this.ngUnsub.complete()
-  }
-
-}
-
-
-
-export class WMLAccordionZeroTitleProps {
-  constructor(props:Partial<WMLAccordionZeroTitleProps>={}){
-    let origProps = Object.entries(props)
-    .filter(([key,val]) => {
-      return !key.startsWith('prop');
-    });
-    Object.assign(this, { ...Object.fromEntries(origProps) })
-  }
-
-  id = ""
-  title="My Accordion Title"
-}
-
-
-
-# FileName: \src\lib\wml-accordion-zero\wml-accordion-zero.module.ts
-
-
-
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { WMLAccordionZeroComponent } from './wml-accordion-zero/wml-accordion-zero.component';
-import { CommonModule } from '@angular/common';
-import { WMLNGXTranslateLoader, WMLNGXTranslateMockPipe, WMLNGXTranslatePipe } from '@windmillcode/angular-wml-components-base';
-import { WMLAccordionZeroSampleComponent } from './wml-accordion-zero-sample/wml-accordion-zero-sample.component';
-import { WMLAccordionZeroItemComponent } from './wml-accordion-zero-item/wml-accordion-zero-item.component';
-import { WMLAccordionZeroTitleComponent } from './wml-accordion-zero-title/wml-accordion-zero-title.component';
-
-let cpnts= [
-  WMLAccordionZeroComponent,
-  WMLAccordionZeroSampleComponent,
-  WMLAccordionZeroItemComponent,
-  WMLAccordionZeroTitleComponent,
-]
-
-@NgModule({
-  declarations: [
-    ...cpnts,
-  ],
-  imports: [
-    WMLNGXTranslatePipe,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
-  exports:[
-    ...cpnts
-  ],
-  providers:[
-    {provide: WMLNGXTranslatePipe,useValue: WMLNGXTranslateMockPipe}
-  ],
-})
-export class WMLAccordionZeroNGXTranslateModule {
-
-}
-
-@NgModule({
-  imports: [
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-
-        provide: TranslateLoader,
-        useFactory: ()=> new WMLNGXTranslateLoader(),
-      }
-    }),
-  ],
-  exports:[
-    WMLAccordionZeroNGXTranslateModule
-  ]
-})
-export class WMLAccordionZeroModule {
-
-}
-
-
-
-
-# FileName: \styles.scss
-
-@import "spacing";
-@import "media_queries";
-@import "color_pallete";
-@import "common";
-@import "fontawesome";
-
-
-
-
-
-
-
+,
+## v18.1.3000-beta0 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+## v18.1.3000-beta1 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+## v18.1.3000-beta2 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+## v18.1.3000-beta3 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+## v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
 

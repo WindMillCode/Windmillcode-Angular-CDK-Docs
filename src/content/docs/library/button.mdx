@@ -1,0 +1,154 @@
+---
+title:  WML Button
+description: The Windmillcode Angular CDK Library
+---
+The `wml-button` library is an Angular-focused toolkit designed to provide developers with versatile and customizable button components. Its primary goal is to offer a streamlined approach to implementing interactive buttons within Angular applications, addressing common challenges such as dynamic content loading, user interaction handling, and flexible styling. By delivering a set of modular and adaptable components, the library aims to enhance the development workflow and enrich the user experience across diverse application scenarios.
+
+The library includes two primary components:
+- **WmlButtonZeroComponent**: A comprehensive component offering deep customization options.
+- **WmlButtonOneComponent**: A simpler alternative for basic button needs with less complexity.
+
+## Installation
+
+```bash
+npm install -s @windmillcode/angular-wml-button
+```
+
+## WMLButtonOne
+
+### Usage
+
+####  Getting Started
+**IMPORTANT YOU NEED TO SET SKIP LIB CHECK TO TRUE IN tsconfig.json**
+**Button-One is suitable for most tasks**
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-8e6mmc?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+#### Create Click Action
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-8rpuly?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+#### Set Icon
+**Use the url to any icon of your choice**
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-artwtm?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+#### Change Button Types
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-rbukg1?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+## WMLButtonZero
+
+### Usage
+
+####  Getting Started
+**IMPORTANT YOU NEED TO SET SKIP LIB CHECK TO TRUE IN tsconfig.json**
+**Button-One is suitable for most tasks**
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-xtxucp?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+#### Create Click Action
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-g1mpgs?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+#### Set Icon
+**Use the url to any icon of your choice**
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-t1eknd?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+#### Change Button Types
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-oihsmw?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+
+
+## Reference
+
+### Properties
+
+#### WmlButtonZeroProps
+
+| Property       | Type                               | Description |
+| -------------- | ---------------------------------- | ----------- |
+| `id`           | `string`                           | Unique identifier for the button component. |
+| `cdref`        | `ChangeDetectorRef`                | Optional. Angular's `ChangeDetectorRef` associated with the component for triggering change detection manually. |
+| `updateSubj`   | `Subject<Partial<WmlButtonZeroProps>>` | Subject to emit updates for the component. Useful for reactive programming patterns. |
+| `type`         | `WMLButtonPropsTypeEnum`          | The type of the button, determining its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. |
+| `text`         | `WMLUIProperty`                    | Overrides the `text` property to set the button's display text. |
+| `button`       | `WMLUIProperty`                    | Overrides the `button` property to customize click behavior. |
+| `icons`        | `Array<WMLImage<any, WMLButtonIconType>>` | Overrides the `icons` property to customize the button's icons. |
+
+#### WmlButtonOneProps
+
+| Property      | Type                               | Description |
+| ------------- | ---------------------------------- | ----------- |
+| `btnClass`    | `string`                           | Gets or sets the button's primary CSS class. |
+| `btnStyle`    | `Partial<CSSStyleDeclaration>`     | Partial CSS styles for the button. |
+| `btnIsPresent`| `boolean`                          | Indicates whether the button is present in the DOM. |
+| `type`        | `WMLButtonPropsTypeEnum`          | The type of the button, influencing its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. |
+| `iconType`    | `WMLButtonIconType`                | The type of icon used in the button. |
+| `text`        | `string`                           | The display text of the button. |
+| `updateSubj`  | `Subject<Partial<WmlButtonOneProps>>` | Subject to emit updates for the component. |
+
+### Methods
+
+#### WmlButtonZeroProps
+
+- `constructor(props: Partial<WmlButtonZeroProps> = {})`: Initializes a new instance of the `WmlButtonZeroProps` class with optional parameters for customization.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+
+#### WmlButtonOneProps
+
+- `constructor(props: Partial<WmlButtonOneProps> = {})`: Initializes a new instance of the `WmlButtonOneProps` class with optional parameters for customization.
+- `updateBtnClassString(value: string)`: Updates the button's primary CSS class.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+- `click(evt?)`: Custom click handler for the button.
+
+## Changelog
+
+### v0.0.1
+- Button is ready to be used.
+
+### v0.0.2
+- Include cursor pointer for the button view.
+
+### v0.0.3
+- Gave hover functionality to the button.
+
+### v1.0.0
+- BREAKING CHANGE: WmlButtonZeroProps.icon changed to WmlButtonZeroProps.icons to represent multiple icons on the button.
+- WmlButtonZeroProps.icons[number], a WMLImage, now has a type of img or icon. If not specified, img is used.
+- The icon appears before the text, not after.
+
+### v2.0.0
+- BREAKING CHANGE: WmlButtonZeroPropsTypeEnum renamed to WMLButtonPropsTypeEnum.
+- Created wml-button-one component for easier button creation.
+
+### v2.1.0
+- Full support for wml-button-one.
+
+### v2.1.1
+- Added WmlButtonOneProps.btnIsPresent to show and hide buttons.
+
+### v3.0.0
+- Ensured support for ngx-translate and non-ngx-translate features.
+
+### v4.0.1
+- Fixed major issues concerning ngx-translate.
+
+### v4.0.5
+- Added CSS ID support and made cdref available on the props.
+
+### v4.0.7
+- Added ID support on the selector element itself.
+
+### v16.2.70
+- Added additional WMLUIProperty to button zero.
+
+### v16.2.80 to v18.1.2300-beta4
+- Various updates to conform with Angular versions and @windmillcode/angular-wml-components-base for unit testing features.
+- BREAKING CHANGES and FIXES to ensure proper functionality and compatibility.
+
+## Version History
+
+For a detailed version history, please refer to the changelog above. The versions reflect updates to Angular and @windmillcode/angular-wml-components-base compatibility, bug fixes, and feature additions.
+
+This documentation page is designed to be optimized for integration into a Starlight Astro website system, providing clear and structured information for developers using the WML Button library.
