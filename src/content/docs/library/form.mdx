@@ -1,0 +1,76 @@
+---
+title:  WML Form
+description: The Windmillcode Angular CDK Library
+---
+
+The Angular WML Form Libary is a versatile and customizable library designed to streamline form creation and management in Angular applications. This component offers the following features:
+
+- **Dynamic Field Management**: Easily manage and update fields dynamically using the `updateFields` and `updateFieldsWrapper` methods.
+- **Flexible Layouts**: Define field sections to organize and layout fields in a structured manner.
+- **Responsive Design**: Ensures forms look great on various screen sizes with built-in media queries.
+- **Custom Styling**: Supports custom styles including glassmorphism effects for a modern UI.
+- **Input Handling**: Handles various types of inputs including standalone fields and WML cards.
+- **Event Handling**: Emits events when fields are updated, allowing for reactive and interactive forms.
+
+## Installation
+```bash
+npm install @windmillcode/angular-wml-form
+npm install @windmillcode/angular-wml-field
+```
+
+## Usage
+
+Below are possible examples that developers might most commonly need to use and those that developers might have issues with. Ensure the component name is included in each example.
+
+```mdx
+### Basic Form Setup
+
+<iframe src="[stackblits url placeholder]"></iframe>
+
+### Dynamic Fields Update
+
+<iframe src="[stackblits url placeholder]"></iframe>
+
+### Custom Styling
+
+<iframe src="[stackblits url placeholder]"></iframe>
+
+### Event Handling
+
+<iframe src="[stackblits url placeholder]"></iframe>
+```
+
+## Reference
+
+### WMLFormZeroComponent Properties
+
+| Property       | Type                               | Description |
+|----------------|------------------------------------|-------------|
+| `props`        | `WMLFormZeroProps`                 | The main properties object for configuring the form. |
+
+### WMLFormZeroProps Properties
+
+| Property                | Type                                 | Description |
+|-------------------------|--------------------------------------|-------------|
+| `view`                  | `WMLView`                            | View configuration for the form. |
+| `displayFields`         | `Array<WMLUIProperty<WMLFieldZeroProps[]>>` | Fields to be displayed in the form. |
+| `fields`                | `Array<WMLFieldZeroProps>`           | List of fields in the form. |
+| `fieldSections`         | `Array<number>`                      | Array defining the layout sections of the fields. |
+| `fieldsUpdateSubj`      | `ReplaySubject<WMLFormFieldsUpdateSubjProps>` | Subject to manage field updates. |
+| `fieldsUpdatedEvent`    | `Subject<void>`                      | Event emitted when fields are updated. |
+| `resetFieldSections`    | `() => void`                         | Method to reset field sections. |
+| `updateFields`          | `(fields: Array<WMLFieldZeroProps>) => void` | Method to update fields. |
+
+### WMLFormZeroComponent Methods
+
+| Method                  | Description |
+|-------------------------|-------------|
+| `updateFields`          | Updates the fields based on the provided configuration. |
+| `updateFieldsWrapper`   | Wrapper method for updating fields with additional properties. |
+| `ngOnChanges`           | Lifecycle hook to handle changes in input properties. |
+| `listenForChangesInFields` | Listens for changes in fields and updates accordingly. |
+| `silenceSubmitAction`   | Prevents the default form submission action. |
+| `ngOnInit`              | Initializes the component and subscribes to necessary observables. |
+| `ngOnDestroy`           | Cleans up subscriptions to prevent memory leaks. |
+
+This structured and organized documentation provides a clear and comprehensive guide for developers to understand and use the `WMLFormZero` component effectively.
