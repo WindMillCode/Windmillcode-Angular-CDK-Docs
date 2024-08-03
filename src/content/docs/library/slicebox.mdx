@@ -1,59 +1,62 @@
 ---
-title:  WML Select
+title:  WML Slicebox
 description: The Windmillcode Angular CDK Library
 ---
+## Overview
 
-The Angular WML Select library is a specialized Angular component library designed to enhance form inputs by providing a robust and flexible select component. Its primary objective is to offer a more dynamic and feature-rich alternative to the native HTML select element, catering to the diverse needs of modern web applications. With its advanced functionalities, the library addresses common challenges faced in creating user-friendly, interactive forms, such as handling dynamic data sets, enabling search and filtering capabilities, and offering better control over the styling and behavior of select menus.
+The Angular WML Slicebox library is an Angular-based library designed to enhance the visual interactivity of web applications by introducing a 3D slicebox carousel component. This library provides a sophisticated and engaging way to display images or content in a carousel format, with a 3D rotation effect that adds depth and dynamism to the user experience. Aimed at integrating seamlessly with Angular applications, Angular WML Slicebox offers a set of configurable options to tailor the carousel's behavior and appearance, making it a versatile tool for developers looking to enhance their UI with 3D interactive elements.
 
-At the core of the Angular WML Select library are its central components: `WMLSelectZeroComponent` and `WMLSelectZeroOptionComponent`. The `WMLSelectZeroComponent` acts as the main container for the select functionality, encapsulating the logic for opening and closing the dropdown, managing selections, and triggering custom events. The `WMLSelectZeroOptionComponent` represents individual selectable items within the dropdown, providing a flexible structure for displaying options and handling user interactions. Developers can leverage these components to create highly interactive and customizable select menus, with support for single or multiple selections, search and filtering, and even asynchronous data loading. The library's design encourages a modular approach, where the `WMLSelectZeroComponent` can be dynamically populated with `WMLSelectZeroOptionComponent` instances, allowing for a high degree of customization and adaptability in different usage scenarios.
+At the heart of the Angular WML Slicebox library is the `WMLSliceboxZeroComponent`, which serves as the central component orchestrating the 3D slicebox carousel's functionality. This component manages the carousel's state, handles user interactions, and renders the 3D slices that comprise the carousel's visual structure. Developers can customize the carousel through a variety of parameters, such as orientation, rotation speed, and disperse factor, allowing for a high degree of control over the carousel's behavior and appearance. Additionally, the library provides mechanisms for dynamically loading content into the carousel and responding to user interactions, making it a flexible solution for presenting content in an engaging and interactive format. The component's design encourages modularity and reusability, adhering to Angular's component-based architecture, and offering developers a straightforward way to incorporate 3D carousel functionality into their applications.
 
 ## Installation
 
-```bash
-npm install -s @windmillcode/angular-wml-select @windmillcode/angular-wml-infinite-dropdown @windmillcode/angular-wml-field
+```shell
+npm install -s @windmillcode/wml-slicebox
 ```
 
-## Usage `WMLSelectZero`
+
+## Usage `WMLSliceboxZeroModule`
 
 ### Getting Started
 
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-ks8cj3?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-st7qkj?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
 
-### Customize Prompt ,Options ...
-**Remember you can replace the components for select and options with your own custom component refer to the infinite-dropdown docs**
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-uzsmo5?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+### Full Example
 
-### Reactive Forms Integration
-
-<iframe src="https://stackblitz.com/edit/stackblitz-starters-g28swe?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-qkcg3q?embed=1&file=src%2Fmain.ts&hideExplorer=1&theme=dark"></iframe>
 
 
 ## Reference
 
-### WMLSelectZeroProps Properties
+###   `WMLSliceboxZeroProps` Configurations
 
-| Property                               | Type                               | Description                                                             |
-|----------------------------------------|------------------------------------|-------------------------------------------------------------------------|
-| `formControl`                          | `AbstractControl`                  | Reactive form control linked with the select component.                 |
-| `optionItems`                          | `WMLInfiniteDropdownZeroOption[]`  | Array of options available in the dropdown.                             |
-| `chosenText`                           | `string`                           | Text of the currently chosen option.                                    |
-component.                              |
-| `select`                               | `WMLInfiniteDropdownZeroOption \| string`    | Selected option object. For input can be string or WMLInfiniteDropdownZeroOption will resolve to WMLInfiniteDropdownZeroOption                                                  |
-| `options`                              | `WMLInfiniteDropdownZeroInputOptions` | Array of options displayed in the dropdown.                             |
-| `dropdown`                             | `WMLInfiniteDropdownZeroProps`     | Properties of the dropdown component.                                   |
-| `cdref`                                | `ChangeDetectorRef`                | Change detector reference for the component.                            |
-| `wmlField`                             | `WMLFieldZeroProps`                | Properties for the WML field component.                                 |
-| `initSubj`                             | `BehaviorSubject<boolean>`         | Subject to trigger initialization.                                      |
+| Name                           | Type                     | Description                                                                                          | Default Value                                    |
+| ------------------------------ | ------------------------ | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| autoplay                       | boolean                  | Whether the carousel should continue or not                                                          | `true`                                           |
+| colorHiddenSides               | hex value, rgba, hsla    | Color of the sides of the cuboid where the image is not shown                                        | '#222'                                           |
+| cuboidsCount                   | number                   | The number of cuboids to be used in the slicebox                                                     | 9                                                |
+| disperseFactor                 | number                   | How far away in pixels should the cuboids coordinate to move away from the center                    | 40                                               |
+| disperseSpeed                  | number                   | Time in ms of how fast the cuboids coordinate to move away from the center                           | 4000                                             |
+| easing                         | css animation easing types| The animation type                                                                                  | 'ease-out'                                       |
+| images                         | WMLSliceboxZeroImg[]         | An array of images to provide to the slicebox                                                        | []                                               |
+| interval                       | number                   | Milliseconds before the carousel navigates if autoplay is true                                       | 3000                                             |
+| jumpToSlideSubj                | subject                  | Not to be edited; used to indicate to the slicebox to jump to a specific slide when autoplay is false| -                                                |
+| moveToNextSlideSubj            | subject                  | Not to be edited; used to indicate to the slicebox to move to the next slide when autoplay is false  | -                                                |
+| moveToPrevSlideSubj            | subject                  | Not to be edited; used to indicate to the slicebox to move to the previous slide when autoplay is false | -                                              |
+| nextRotationDegree             | css degree string        | When provided, overrides the default rotation to have the next slides rotate according to your desires| `'-90deg'` if `reverse` is `true`, else `'90deg'` |
+| orientation                    | 'v' \| 'h'               | Whether to rotate vertically or horizontally                                                         | 'v'                                              |
+| perspective                    | px value                 | Same as perspective definition in graphic design                                                     | 10000                                            |
+| prevRotationDegree             | css degree string        | When provided, overrides the default rotation to have the next slides rotate according to your desires| Opposite of `nextRotationDegree`                 |
+| resizeDelay                    | number                   | Amount of time to debounce before the carousel resizes itself        | 10                                             |
+| reverse                        | boolean                  | Whether to reverse the default rotation overwritten of nextRotationDegree is set                                                              | `false`                                          |
+| sequentialFactor               | number                   | Time in ms before each cuboid consecutively rotates                                                  | 350                                              |
+| sliceboxSizeUseProvidedValues  | boolean                  | Whether to resize to fill the parent element or use specified height and width of the slicebox       | `false`                                          |
+| speed                          | number                   | How fast each cuboid is supposed to rotate                                                           | 15660                                            |
 
-### WMLSelectZeroProps Methods
 
-| Method                              | Signature                                  | Description                                                             |
-|-------------------------------------|--------------------------------------------|-------------------------------------------------------------------------|
-| `init`                              | `void`                                     | Initializes the select component.                                       |
-| `reset`                             | `void`                                     | Resets the select component properties.                                 |
-                   |
 
+Feel free to explore and use these configurations and methods to create a highly interactive and visually appealing carousel for your Angular applications!
 
 
 ## Changelog
@@ -210,3 +213,6 @@ component.                              |
 ### v18.1.3000-beta3 [8/1/24]
  * updated package to conform with @windmillcode/angular-wml-components-base   ,
 ### v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3001
+[BREAKING CHANGES] changed from wml-slicebox to wml-slicebox-zero and replaced all Params with Props
