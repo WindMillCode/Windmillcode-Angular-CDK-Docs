@@ -1,0 +1,87 @@
+---
+title:  WML Tabs
+description: The Windmillcode Angular CDK Library
+---
+## Overview
+
+The WML Tabs Zero component is a customizable tab component for Angular applications. It offers the following features:
+
+- Customizable Headers: Each tab can have a custom header or a predefined WML tab header.
+- Dynamic Tab Content: The body of each tab can be customized to include any component.
+- Event Handling: The component provides events for tab changes and updates.
+- Responsive Design: The component is designed to be responsive and adapts to various screen sizes.
+- Custom Styling: Supports custom styles through SCSS variables and mixins.
+
+## Installation
+
+To install the WML Tabs Zero component, use the following command:
+
+```bash
+npm install @windmillcode/angular-wml-tabs-zero
+```
+
+## Usage
+
+Here are some possible examples of how to use the WML Tabs Zero component:
+
+### Getting Started
+
+<iframe src=""></iframe>
+
+### Custom Header
+
+<iframe src=""></iframe>
+
+### Dynamic Tab Content
+
+<iframe src=""></iframe>
+
+### Event Handling
+
+<iframe src=""></iframe>
+
+### Responsive Design
+
+<iframe src=""></iframe>
+
+### Custom Styling
+
+<iframe src=""></iframe>
+
+## Reference
+
+| Property                   | Type                                 | Description                                                  |
+|----------------------------|--------------------------------------|--------------------------------------------------------------|
+| `index`                    | `number`                             | Index of the tab.                                            |
+| `isChosen`                 | `boolean`                            | Indicates if the tab is currently selected.                  |
+| `header`                   | `object`                             | Header configuration for the tab.                            |
+| `header.type`              | `"custom" \| "wmlTabHeader"`         | Type of header to use.                                       |
+| `header.wmlTabHeader`      | `WMLTabHeader`                       | Configuration for the WML tab header.                        |
+| `header.custom`            | `WMLCustomComponent`                 | Custom header component.                                     |
+| `body`                     | `WMLCustomComponent`                 | Custom body component for the tab.                           |
+| `props`                    | `WMLTabsZeroProps`                   | Properties for the tab component.                            |
+| `props.tabs`               | `Array<WMLTabsZero>`                 | Array of tabs.                                               |
+| `props.updateTabsSubj`     | `Subject<WMLTabsZeroPropsUpdateTabsSubjProps \| void>` | Subject for updating tabs.                    |
+| `props.tabChangedEvent`    | `Subject<WMLTabsZero>`               | Event emitted when the tab is changed.                       |
+| `WMLTabsZeroPropsUpdateTabsSubjProps` | `class`                     | Class for updating tabs properties.                          |
+| `WMLTabHeader`             | `class`                              | Class for WML tab header configuration.                      |
+| `WMLTabHeader.isChosenClass` | `string`                           | Class to apply when the tab is selected.                     |
+| `WMLTabHeader.isNotChosenClass` | `string`                       | Class to apply when the tab is not selected.                 |
+| `WMLTabHeader.icon`        | `WMLUIProperty`                      | Icon configuration for the tab header.                       |
+| `WMLTabHeader.click`       | `function`                           | Click event handler for the tab header.                      |
+| `WMLUIProperty`            | `class`                              | Class for defining UI properties.                            |
+| `WMLSampleTabBodyComponentProps` | `class`                       | Class for sample tab body component properties.              |
+| `WMLSampleTabBodyComponentProps.text` | `string`                | Text to display in the sample tab body component.            |
+
+### Methods
+
+| Method                    | Description                                                  |
+|---------------------------|--------------------------------------------------------------|
+| `generateClassPrefix`     | Generates a class prefix for the component.                  |
+| `classPrefix`             | Returns a class prefix string.                               |
+| `listenForUpdateTabs`     | Listens for tab update events.                               |
+| `updateTabs`              | Updates the tabs based on the provided properties.           |
+| `toggleSelectedTab`       | Toggles the selected state of the tabs.                      |
+| `applyCustomBody`         | Applies the custom body component to the tab.                |
+| `ngOnInit`                | Angular lifecycle method, initializes the component.         |
+| `ngOnDestroy`             | Angular lifecycle method, cleans up the component.           |
