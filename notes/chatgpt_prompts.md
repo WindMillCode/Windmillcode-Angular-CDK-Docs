@@ -8,6 +8,7 @@ For the overview talk about all features of the compponent except for translatio
 
 Do not create a usage section with code just provide possible examples that developers many most commonly need to use and those that developers might have issues with ensure the component name is with ## the Usage section is with ### and each example is with #### acording to the example name not (example 1...) dont include example in the subsection. make sure to include a getting started
 each usuage subsection should be in the format
+do not wrap in ```mdx code markdown!
 
 ### [Subsectiion placeholder]
 
