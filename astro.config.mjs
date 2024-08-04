@@ -27,6 +27,12 @@ export default defineConfig({
       //   }]
       // },
       {
+        label:"Intro",
+        autogenerate: {
+          directory: 'intro'
+        }
+      },
+      {
         label:"Schematics",
         autogenerate: {
           directory: 'schematics'
