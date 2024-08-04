@@ -6,7 +6,6 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site:"https://windmillcode.github.io/Windmillcode-Angular-CDK-Docs",
-  base:"/docs",
   outDir: 'docs',
   integrations: [
   starlight({
@@ -27,6 +26,12 @@ export default defineConfig({
       //     slug: 'guides/example'
       //   }]
       // },
+      {
+        label:"Schematics",
+        autogenerate: {
+          directory: 'schematics'
+        }
+      },
        {
         label: 'Reference',
         autogenerate: {
