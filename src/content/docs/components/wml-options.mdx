@@ -1,0 +1,117 @@
+---
+title:  WML Options
+description: The Windmillcode Angular CDK Library
+---
+
+The `wml-options` library is an Angular-based toolkit designed to enhance the selection and management of options within applications. Its primary objective is to provide a streamlined and efficient way for developers to integrate and manage multiple choice selections, toggles, and option-related actions in their Angular projects. The library offers a set of components and services that enable the display and interaction with various types of options, supporting both default and custom components for dynamic and interactive content.
+
+Key features of the `wml-options` library include:
+- Customizable option items with dynamic content.
+- Support for reactive forms, allowing easy integration with Angular's form system.
+- Ability to handle a large number of options efficiently.
+- Customizable appearance through CSS and SCSS.
+- Modular and flexible design, facilitating independent or combined usage of components.
+
+## Installation
+
+```bash
+npm install --verbose @windmillcode/angular-wml-options
+```
+
+## Usage
+
+### WMLOptionsZero
+### Getting Started
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-m7vxw9?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+### Displaying a List of Options
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-by1fgm?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+### Custom Option Content
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-ikexg4?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+### Handling Option Selection
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-eegmbl?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+### Default Values
+**IMPORTANT  WMLOptionZeroItemProps.isChosen is the only way to set default values on options!!!**
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-p1vhz5?ctl=1&embed=1file=src%2Fmain.ts&theme=dark"></iframe>
+## Reference
+
+### `WMLOptionsZeroProps` Properties
+
+| Property                        | Type                      | Description                                                                 |
+|---------------------------------|---------------------------|-----------------------------------------------------------------------------|
+| `hasBeenInitalized`             | `boolean`                 | Indicates if the component has been initialized.                            |
+| `chosen`                        | `WMLOptionsZeroProps["options"][]` | The list of chosen options.                                               |
+| `options`                       | `WMLOptionZeroItemProps[]` | The list of available options.                                              |
+| `limit`                         | `number`                  | Maximum number of selectable options.                                       |
+| `wmlField`                      | `WMLFieldZeroProps`       | The associated WML field for reactive form integration.                     |
+| `formArray`                     | `FormArray`               | The form array for managing selected options.                               |
+| `listenForClearedFormIsEnabled` | `boolean`                 | Enables listening for form clear events.                                    |
+| `updateFormArrayPredicate`      | `(val: any) => any`       | Predicate function to update the form array.                                |
+| `restoreInitalValuesInFormArray`| `() => void`              | Function to restore initial values in the form array.                       |
+
+### `WMLOptionZeroItemProps` Properties
+
+| Property         | Type                       | Description                                              |
+|------------------|----------------------------|----------------------------------------------------------|
+| `isChosen`       | `boolean`                  | Indicates if the option is chosen.                       |
+| `text`           | `string`                   | The display text for the option.                         |
+| `toggleClass`    | `string`                   | CSS class to toggle for the option.                      |
+| `clickPredicate` | `Function`                 | Predicate function to handle option click events.        |
+| `wmlOptions`     | `WMLOptionsZeroProps`      | The parent options configuration.                        |
+| `customCpnt`     | `WMLCustomComponent`       | Custom component for the option content.                 |
+
+### `WMLOptionsZeroComponent` Methods
+
+| Method            | Parameters               | Description                                                |
+|-------------------|--------------------------|------------------------------------------------------------|
+| `listenForClearedForm` | None                | Listens for form clear events and updates option states.   |
+| `populateFields`  | `init: boolean`          | Populates fields based on the selected options.            |
+| `updateFormArray` | None                     | Updates the form array with the selected options.          |
+| `toggleChosen`    | `btn: WMLOptionZeroItemProps, init: boolean` | Toggles the chosen state of an option.      |
+| `ngAfterViewInit` | None                     | Lifecycle hook for after view initialization.              |
+| `ngOnDestroy`     | None                     | Lifecycle hook for component destruction.                  |
+
+
+## Changelog
+
+### v18.1.3000-beta1 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta2 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta3 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3000
+* fixed a bug with default options
+
+
+### v18.1.3001 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3002 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3002 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3003 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3004 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3005 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3006 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3007 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4000 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4001 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.0 [8/15/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.1 [8/20/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base

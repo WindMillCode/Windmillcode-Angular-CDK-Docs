@@ -1,0 +1,298 @@
+---
+title:  WML Tabs
+description: The Windmillcode Angular CDK Library
+---
+
+The WML Tabs Zero component is a customizable tab component for Angular applications. It offers the following features:
+
+- Customizable Headers: Each tab can have a custom header or a predefined WML tab header.
+- Dynamic Tab Content: The body of each tab can be customized to include any component.
+- Event Handling: The component provides events for tab changes and updates.
+- Responsive Design: The component is designed to be responsive and adapts to various screen sizes.
+- Custom Styling: Supports custom styles through SCSS variables and mixins.
+
+## Installation
+
+To install the WML Tabs Zero component, use the following command:
+
+```bash
+npm install --verbose @windmillcode/angular-wml-tabs
+```
+
+## Usage
+
+Here are some possible examples of how to use the WML Tabs Zero component:
+
+### Getting Started
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-dxn2cp?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+### Custom Body
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-vaaqrn?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+### Custom Header
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-kfdqgi?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+### Change Tab Programtically
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-hrdqcq?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+### Listen For Tab Change
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-hy5tkg?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+## Reference
+
+### WMLTabsZeroProps
+
+| Property                   | Type                                 | Description                                                  |
+|----------------------------|--------------------------------------|--------------------------------------------------------------|
+| `tabs`                     | `Array<WMLTabsZero>`                 | Array of tab configurations.                                 |
+| `setState`           | `(<WMLTabsZeroPropsUpdateTabsSubjProps \| void>)=> void` | Subject for updating tabs.                    |
+| `tabChangedEvent`          | `Subject<WMLTabsZero>`               | Event emitted when a tab is changed.                         |
+
+### WMLTabsZero
+
+| Property                   | Type                                 | Description                                                  |
+|----------------------------|--------------------------------------|--------------------------------------------------------------|
+| `index`                    | `number`                             | Index of the tab.                                            |
+| `isChosen`                 | `boolean`                            | Indicates if the tab is currently selected.                  |
+| `header`                   | `object`                             | Header configuration for the tab.                            |
+| `header.type`              | `"custom" \| "wmlTabHeader"`         | Type of header to use.                                       |
+| `header.wmlTabHeader`      | `WMLTabHeader`                       | Configuration for the WML tab header.                        |
+| `header.custom`            | `WMLCustomComponent`                 | Custom header component.                                     |
+| `body`                     | `WMLCustomComponent`                 | Custom body component for the tab.                           |
+
+### WMLTabsZeroPropsUpdateTabsSubjProps
+
+| Property                   | Type                                 | Description                                                  |
+|----------------------------|--------------------------------------|--------------------------------------------------------------|
+| `currentTable`             | `number`                             | Index of the current active tab.                             |
+
+### WMLTabHeader
+
+| Property                   | Type                                 | Description                                                  |
+|----------------------------|--------------------------------------|--------------------------------------------------------------|
+| `isChosenClass`            | `string`                             | Class to apply when the tab is selected.                     |
+| `isNotChosenClass`         | `string`                             | Class to apply when the tab is not selected.                 |
+| `icon`                     | `WMLUIProperty`                      | Icon configuration for the tab header.                       |
+| `click`                    | `function`                           | Click event handler for the tab header.                      |
+
+
+
+## Changelog
+###  0.0.1
+    * component deployed made available for use
+    pass an instace of WMLTabsZeroProps to the html like so
+```ts
+tabProps = new WMLTabsZeroProps({
+  tabs:[
+    new WMLTab({
+      header:{
+        type:"wmlTabHeader",
+        wmlTabHeader:new WMLTabHeader({
+          text:"Tab "+index0
+        }),
+        body = new WMLCustomComponent({
+          cpnt:YourComponent,
+          props:new YourComponentProps()
+        })
+      }
+    })
+  ]
+})
+```
+```html
+<wml-tabs [props]=tabProps></wml-tabls>
+```
+
+### v1.0.0
+  * fixed major problems concerning ngx-translate
+```ts
+// translate
+// first make sure to have ONLY ONE in the imports for AppModule
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    }),
+// then
+WMLTabsZeroNGXTranslateModule
+// for regular
+WMLTabsZeroModule
+```
+
+### 1.0.1
+* mimor dep update
+
+### v16.2.80
+ * updated package to reflect the version  16.2.80 of @angular/core package
+,
+### v16.2.80
+ * updated package to reflect the version  16.2.80 of @angular/core package,
+### v16.2.90
+ * updated package to reflect the version  16.2.90 of @angular/core package,
+### v16.2.91
+ * updated package to reflect the version  16.2.91 of @angular/core package,
+### v16.2.93
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.100
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.110
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.120
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.10
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.11
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.20
+ * updated package to reflect the version  ^17.0.2 of @angular/core package,
+### v17.0.40
+ * updated package to reflect the version  ^17.0.4 of @angular/core package,
+### v17.0.50
+ * updated package to reflect the version  ^17.0.5 of @angular/core package,
+### v17.0.60
+ * updated package to reflect the version  ^17.0.6 of @angular/core package,
+### v17.0.70
+ * updated package to reflect the version  ^17.0.7 of @angular/core package,
+### v17.0.7100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7200
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7300
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.80
+ * updated package to reflect the version  ^17.0.8 of @angular/core package,
+### v17.0.8100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.8102
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.8103
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.9000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.9001
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.0000
+ * updated package to reflect the version  ^17.1.0 of @angular/core package,
+### v17.1.2
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.1000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.2000 [2/5/24]
+ * updated package to reflect the version  ^17.1.2 of @angular/core package,
+### v17.1.2001 [2/8/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.3000 [2/8/24]
+ * updated package to reflect the version  ^17.1.3 of @angular/core package,
+### v17.2.1000 [2/17/24]
+ * updated package to reflect the version  ^17.2.1 of @angular/core package,
+### v17.2.2001 [2/23/24]
+ * updated package to reflect the version  ^17.2.2 of @angular/core package,
+### v17.2.3000 [2/28/24]
+ * updated package to reflect the version  ^17.2.3 of @angular/core package,
+### v17.2.3001 [3/2/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.3002 [3/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4000 [3/8/24]
+ * updated package to reflect the version  ^17.2.4 of @angular/core package,
+### v17.2.4001 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4002 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4003 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4004 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.0 [3/17/24]
+ * updated package to reflect the version  ^17.3.0 of @angular/core package
+,
+### v17.3.1000 [3/22/24]
+ * updated package to reflect the version  ^17.3.1 of @angular/core package,
+### v17.3.2000 [3/28/24]
+ * updated package to reflect the version  ^17.3.2 of @angular/core package,
+### v17.3.3000 [4/4/24]
+ * updated package to reflect the version  ^17.3.3 of @angular/core package,
+### v17.3.4000 [4/11/24]
+ * updated package to reflect the version  ^17.3.4 of @angular/core package,
+### v17.3.4001 [4/16/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.5000 [4/20/24]
+ * updated package to reflect the version  ^17.3.5 of @angular/core package,
+### v17.3.5110 [5/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.6000 [5/1/24]
+ * updated package to reflect the version  ^17.3.6 of @angular/core package,
+### v17.3.7000 [5/9/24]
+ * updated package to reflect the version  ^17.3.7 of @angular/core package,
+### v17.3.8000 [5/9/24]
+ * updated package to reflect the version  ^17.3.8 of @angular/core package,
+### v17.3.9000 [5/16/24]
+ * updated package to reflect the version  ^17.3.9 of @angular/core package,
+### v18.0.1 [5/23/24]
+ * updated package to reflect the version  ^18.0.0 of @angular/core package,
+### v18.0.4 [5/25/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.1000 [5/29/24]
+ * updated package to reflect the version  ^18.0.1 of @angular/core package,
+### v18.0.2000 [6/6/24]
+ * updated package to reflect the version  ^18.0.2 of @angular/core package,
+### v18.0.3000 [6/13/24]
+ * updated package to reflect the version  ^18.0.3 of @angular/core package,
+### v18.0.3010 [6/18/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.4000 [6/23/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.5000 [6/26/24]
+ * updated package to reflect the version  ^18.0.5 of @angular/core package,
+### v18.0.6000 [7/5/24]
+ * updated package to reflect the version  ^18.0.6 of @angular/core package,
+### v18.1.4 [7/13/24]
+ * updated package to reflect the version  ^18.1.0 of @angular/core package,
+### v18.1.6 [7/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.1000 [7/18/24]
+ * updated package to reflect the version  ^18.1.1 of @angular/core package,
+### v18.1.2000 [7/24/24]
+ * updated package to reflect the version  ^18.1.2 of @angular/core package,
+### v18.1.2300 [7/27/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.2301 [7/30/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+,
+### v18.1.3000-beta3 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3002 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3001 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3003 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3004 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3005 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3006 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3007 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4000 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4001 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.0 [8/15/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.1 [8/20/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base

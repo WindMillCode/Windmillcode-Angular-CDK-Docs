@@ -1,0 +1,408 @@
+---
+title:  WML Button
+description: The Windmillcode Angular CDK Library
+---
+The `wml-button` library is an Angular-focused toolkit designed to provide developers with versatile and customizable button components. Its primary goal is to offer a streamlined approach to implementing interactive buttons within Angular applications, addressing common challenges such as dynamic content loading, user interaction handling, and flexible styling. By delivering a set of modular and adaptable components, the library aims to enhance the development workflow and enrich the user experience across diverse application scenarios.
+
+The library includes two primary components:
+- **WMLButtonZeroComponent**: A comprehensive component offering deep customization options.
+- **WMLButtonOneComponent**: A simpler alternative for basic button needs with less complexity.
+
+## Installation
+
+```bash
+npm install -s --verbose @windmillcode/angular-wml-button
+```
+
+## WMLButtonOne
+
+### Usage
+
+####  Getting Started
+**Button-One is suitable for most tasks**
+
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-8e6mmc?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+#### Change Button Text And Color
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-trlz36?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+#### Create Click Action
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-8rpuly?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+#### Set Icon
+**Use the url to any icon of your choice**
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-artwtm?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+#### Change Button Types
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-rbukg1?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+## WMLButtonZero
+**Button-Zero is for advanced customization**
+
+### Usage
+
+####  Getting Started
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-xtxucp?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+#### Create Click Action
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-g1mpgs?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+#### Change Text
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-cyh7p3?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+#### Set Icon
+**Use the url to any icon of your choice**
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-t1eknd?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+#### Change Button Types
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-oihsmw?ctl=1&embed=1&file=src%2Fmain.ts&theme=dark"></iframe>
+
+
+## Reference
+
+### Properties
+
+#### WMLButtonZeroProps
+
+| Property       | Type                                     | Description |
+| -------------- | ---------------------------------------- | ----------- |
+| `id`           | `string`                                 | Unique identifier for the button component. |
+| `cdref`        | `ChangeDetectorRef`                      | Optional. Angular's `ChangeDetectorRef` associated with the component for triggering change detection manually. |
+| `updateSubj`   | `Subject<Partial<WMLButtonZeroProps>>`    | Subject to emit updates for the component. Useful for reactive programming patterns. |
+| `type`         | `WMLButtonPropsTypeEnum`                 | The type of the button, determining its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. Uses a getter/setter to handle the internal state and update button classes dynamically. |
+| `text`         | `WMLUIProperty`                          | Property that configures the display text of the button, defaulting to "Click Me". |
+| `button`       | `WMLUIProperty`                          | Property that configures the button behavior, including a click handler with a default alert action. |
+| `icons`        | `Array<WMLImage<any, WMLButtonIconType>>`| An array of icon objects representing the button's icons. By default, this is set to a single font-awesome icon, with the icon type defaulting to `img`. |
+| `attr`         | `Object`                                 | An object containing additional HTML attributes for the button, including: |
+| `attr.type`    | `"submit" | "reset" | "button"`          | Specifies the HTML `type` attribute for the button. The default value is `"button"`. |
+
+
+#### WMLButtonOneProps
+
+| Property        | Type                                     | Description |
+| --------------- | ---------------------------------------- | ----------- |
+| `btnClass`      | `string`                                 | Gets or sets the button's primary CSS class. |
+| `btnStyle`      | `Partial<CSSStyleDeclaration>`           | Partial CSS styles for the button. |
+| `btnIsPresent`  | `boolean`                                | Indicates whether the button is present in the DOM. |
+| `type`          | `WMLButtonPropsTypeEnum`                 | The type of the button, influencing its styling. Can be `PRIMARY`, `SECONDARY`, or `TERTIARY`. |
+| `iconType`      | `WMLButtonIconType`                      | The type of icon used in the button. |
+| `text`          | `string`                                 | The display text of the button. Default is `"Click Me"`. |
+| `iconClass`     | `string`                                 | Gets or sets the icon's CSS class. |
+| `iconSrc`       | `string`                                 | Source URL of the icon. |
+| `iconAlt`       | `string`                                 | Alt text for the icon, used for accessibility. |
+| `iconIsPresent` | `boolean`                                | Indicates whether the icon is present. |
+| `textIsPresent` | `boolean`                                | Indicates whether the text is present in the button. |
+| `click`         | `(evt?) => void`                         | Function that handles the button click event. Default action is an alert. |
+| `updateSubj`    | `Subject<Partial<WMLButtonOneProps>>`     | Subject to emit updates for the component. |
+| `link`          | `string`                                 | URL to which the button links, if it's a link button. |
+| `routerLink`    | `string`                                 | Angular router link to navigate when the button is clicked. |
+| `attr`          | `Object`                                 | An object containing additional HTML attributes for the button, including: |
+| `attr.type`     | `"submit" | "reset" | "button"`          | Specifies the HTML `type` attribute for the button. The default value is `"button"`. |
+
+
+### Methods
+
+#### WMLButtonZeroProps
+
+- `constructor(props: Partial<WMLButtonZeroProps> = {})`: Initializes a new instance of the `WMLButtonZeroProps` class with optional parameters for customization.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+
+#### WMLButtonOneProps
+
+- `constructor(props: Partial<WMLButtonOneProps> = {})`: Initializes a new instance of the `WMLButtonOneProps` class with optional parameters for customization.
+- `updateBtnClassString(value: string)`: Updates the button's primary CSS class.
+- `updateBtnClasses(value: WMLButtonPropsTypeEnum)`: Updates the button's classes based on the specified type (`PRIMARY`, `SECONDARY`, or `TERTIARY`).
+- `click(evt?)`: Custom click handler for the button.
+
+## Changelog
+  * v0.0.1
+    button is ready to be used
+  * v0.0.2
+    include cursor pointer for the button view
+  * v0.0.3
+    gave hover functionality to the button
+  * 1.0.0
+    BREAKING change  WMLButtonZeroProps.icon changed to WMLButtonZeroProps.icons to represent the multiple icons one can have on the button
+    WMLButtonZeroProps.icons[number] which is a WMLImage now has type of img or icon, if a type is not specified an img is used
+    the icon comes before the text and not after the text
+  * 2.0.0
+    BREAKING CHANGE
+    WMLButtonZeroPropsTypeEnum renamed to WMLButtonPropsTypeEnum
+    created wml-button-one component which leverages wmlButton for easier button creation
+  * 2.1.0
+    * full support for wml-button-one
+  * 2.1.1
+    * add WMLButtonOneProps.btnIsPresent to show and hide buttons
+  * 3.0.0
+    * ensured that there is support for ngx-translate and non ngx-translate features
+    * to enable translation
+```ts
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+    HttpClientModule,
+    WMLButtonZeroModule
+    .forChild(
+      new WMLModuleForRootProps({
+        ngxTranslateLoaderFactory:HttpLoaderFactory
+      })
+    ),
+```
+    * to disable translation
+```ts
+    WMLButtonZeroModule
+```
+
+### 4.0.1
+  * fixed major problems concerning ngx-translate
+```ts
+// translate
+// first make sure to have ONLY ONE in the imports for AppModule
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    }),
+// then
+WMLButtonZeroNGXTranslateModule
+// for regular
+WMLButtonZeroModule
+```
+### 4.0.5
+* added css id support, and made cdref available on the props
+
+### 4.0.7
+* add id support on the selector element itself
+
+### 16.2.70
+* for wmlbuttonzero, added additional wmluiproperty to button zero
+
+,
+### v16.2.80
+ * updated package to reflect the version  16.2.80 of @angular/core package,
+### v16.2.90
+ * updated package to reflect the version  16.2.90 of @angular/core package,
+### v16.2.91
+ * updated package to reflect the version  16.2.91 of @angular/core package,
+### v16.2.93
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.100
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.110
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v16.2.120
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.10
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.11
+ * updated package to conform with @windmillcode/angular-wml-components-base for unit testing features  ,
+### v17.0.20
+ * updated package to reflect the version  ^17.0.2 of @angular/core package,
+### v17.0.40
+ * updated package to reflect the version  ^17.0.4 of @angular/core package,
+### v17.0.50
+ * updated package to reflect the version  ^17.0.5 of @angular/core package,
+### v17.0.60
+ * updated package to reflect the version  ^17.0.6s of @angular/core package,
+### v17.0.70
+ * updated package to reflect the version  ^17.0.7 of @angular/core package,
+### v17.0.7100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7200
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.7300
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.80
+ * updated package to reflect the version  ^17.0.8 of @angular/core package,
+### v17.0.8100
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.8102
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v17.0.8103
+ * [FIX] ensured that change detection was working for buttons
+,
+### v17.0.8103
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v17.0.8104
+  * [FIX] toggle margin between icon and text for wml-button-one when iconIsPresent is set to true
+,
+### v17.0.9000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.0.9001
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v17.0.9002
+  * updated WMLButtonOneProps.click to have optional evt paramaeter
+,
+### v17.1.0000
+ * updated package to reflect the version  ^17.1.0 of @angular/core package,
+### v17.1.2
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.1000
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.1.2000 [2/5/24]
+ * updated package to reflect the version  ^17.1.2 of @angular/core package,
+### v17.1.2001 [2/8/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v17.1.2002 [2/8/24]
+* corrected code so no text should wrap if the text overflows the button
+,
+### v17.1.3000 [2/8/24]
+ * updated package to reflect the version  ^17.1.3 of @angular/core package,
+### v17.2.1000 [2/17/24]
+ * updated package to reflect the version  ^17.2.1 of @angular/core package
+
+### 17.2.1001 [2/21/24]
+* [UPDATE] added WMLButtonZeroProps.listenForUpdate amd WMLButtonOneProps.listenForUpdate so changes that dont reflect by assignment would reflect this way
+
+
+### v17.2.2000 [2/23/24]
+ * updated package to reflect the version  ^17.2.2 of @angular/core package,
+### v17.2.2001 [2/23/24]
+ * updated package to reflect the version  ^17.2.2 of @angular/core package,
+### v17.2.3000 [2/28/24]
+ * updated package to reflect the version  ^17.2.3 of @angular/core package,
+### v17.2.3001 [3/2/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.3002 [3/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4000 [3/8/24]
+ * updated package to reflect the version  ^17.2.4 of @angular/core package,
+### v17.2.4001 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4002 [3/12/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4003 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.2.4004 [3/13/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.0 [3/17/24]
+ * updated package to reflect the version  ^17.3.0 of @angular/core package
+,
+### v17.3.1000 [3/22/24]
+ * updated package to reflect the version  ^17.3.1 of @angular/core package,
+### v17.3.2000 [3/28/24]
+ * updated package to reflect the version  ^17.3.2 of @angular/core package,
+### v17.3.3000 [4/4/24]
+ * updated package to reflect the version  ^17.3.3 of @angular/core package,
+### v17.3.4000 [4/11/24]
+ * updated package to reflect the version  ^17.3.4 of @angular/core package,
+### v17.3.4001 [4/16/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.5000 [4/20/24]
+ * updated package to reflect the version  ^17.3.5 of @angular/core package,
+### v17.3.5110 [5/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v17.3.6000 [5/1/24]
+ * updated package to reflect the version  ^17.3.6 of @angular/core package,
+### v17.3.7000 [5/9/24]
+ * updated package to reflect the version  ^17.3.7 of @angular/core package,
+### v17.3.8000 [5/9/24]
+ * updated package to reflect the version  ^17.3.8 of @angular/core package,
+### v17.3.9000 [5/16/24]
+ * updated package to reflect the version  ^17.3.9 of @angular/core package,
+### v18.0.0 [5/22/24]
+ * updated package to reflect the version  ^18.0.0 of @angular/core package,
+### v18.0.1 [5/22/24]
+ * updated package to reflect the version  ^18.0.0 of @angular/core package,
+### v18.0.4 [5/25/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.1000 [5/29/24]
+ * updated package to reflect the version  ^18.0.1 of @angular/core package,
+### v18.0.2000 [6/6/24]
+ * updated package to reflect the version  ^18.0.2 of @angular/core package,
+### v18.0.3000 [6/13/24]
+ * updated package to reflect the version  ^18.0.3 of @angular/core package,
+### v18.0.3010 [6/18/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.4000 [6/23/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.0.5000 [6/26/24]
+ * updated package to reflect the version  ^18.0.5 of @angular/core package,
+### v18.0.6000 [7/5/24]
+ * updated package to reflect the version  ^18.0.6 of @angular/core package,
+### v18.1.0 [7/10/24]
+ * updated package to reflect the version  ^18.1.0 of @angular/core package,
+### v18.1.3 [7/13/24]
+ * updated package to reflect the version  ^18.1.0 of @angular/core package,
+### v18.1.4 [7/13/24]
+ * updated package to reflect the version  ^18.1.0 of @angular/core package
+### v18.1.5 [7/13/24]
+ * [FIX] - fixed a bug with the default type not showing
+,
+### v18.1.6 [7/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.1000 [7/18/24]
+ * updated package to reflect the version  ^18.1.1 of @angular/core package,
+### v18.1.2000 [7/24/24]
+ * updated package to reflect the version  ^18.1.2 of @angular/core package
+
+### v18.1.2300
+[7/26/2024 4:05:00 PM EST]
+
+[UPDATE] Updated wml-button-one.component.html, added conditional links for props.link and props.routerLink
+[UPDATE] Updated wml-button-one.component.scss, added styles for links and removed unnecessary comments
+[BREAKING CHANGE] Added encapsulation: ViewEncapsulation.None in wml-button-one.component.ts
+[UPDATE] Added RouterModule to imports in wml-button-zero.module.ts
+,
+### v18.1.2300 [7/27/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.2301 [7/30/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+,
+### v18.1.3000-beta0 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta1 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta2 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta3 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base   ,
+### v18.1.3000-beta4 [8/1/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3001 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3002 [8/4/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3002 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3003 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3003 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.1.3004 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3005 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3006 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.3007 [8/5/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4000 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.1.4001 [8/14/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.0 [8/15/24]
+ * updated package to conform with @windmillcode/angular-wml-components-base
+
+### v18.2.1 [8/20/24]
+ *  * updated package to conform with @windmillcode/angular-wml-components-base
+### v18.2.2 [8/20/24]
+ * [FIX] fixed a bug where the free module was not showing any text
+
+ ### v18.2.3 [8/20/24]
+ * [UPDATE] made button default type button so unwanted side effects dont occur
