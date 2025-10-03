@@ -1,4 +1,4 @@
-import { H as renderJSX, I as createVNode, J as AstroJSX, a as AstroUserError } from './chunks/astro/server_4SKcXMmt.mjs';
+import { H as renderJSX, I as createVNode, J as AstroJSX, a as AstroUserError } from './chunks/astro/server_DEq4NUVT.mjs';
 
 const slotName = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
 async function check(Component, props, { default: children = null, ...slotted } = {}) {
@@ -46,6 +46,6 @@ const renderer = {
 };
 var server_default = renderer;
 
-const renderers = [Object.assign({"name":"astro:jsx","serverEntrypoint":"file:///C:/My_Notebook/WindMillCode/projects/angular-templates/starlight-docs/node_modules/.pnpm/@astrojs+mdx@4.3.1_astro@5._877e3fe64789bdc00691a1d10e6f0a7e/node_modules/@astrojs/mdx/dist/server.js"}, { ssr: server_default }),];
+const renderers = [Object.assign({"name":"astro:jsx","serverEntrypoint":"file:///C:/My_Notebook/WindMillCode/projects/angular-templates/starlight-docs/node_modules/.pnpm/@astrojs+mdx@4.3.6_astro@5._8fbb999a77a82f36f23f5785346bfee3/node_modules/@astrojs/mdx/dist/server.js"}, { ssr: server_default }),];
 
 export { renderers };
